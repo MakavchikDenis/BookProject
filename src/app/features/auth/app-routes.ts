@@ -1,6 +1,6 @@
 import { provideRouter, Routes } from "@angular/router";
-import { AuthorizationComponent } from "./features/auth/authorization/authorization.component";
-import { AppComponent } from "./app.component";
+import { AuthorizationComponent } from "./authorization.component";
+import { AppComponent } from "../../app.component";
 import { ApplicationConfig } from "@angular/core";
 
 const routes:Routes = [

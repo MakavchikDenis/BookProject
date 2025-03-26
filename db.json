@@ -1,0 +1,66 @@
+{
+    "users": [
+      {
+        "primaryKey":1,
+        "login": "user1",
+        "password": "",
+        "email": ""
+      },
+      {
+        "primaryKey":2,
+        "login": "user2",
+        "password": "",
+        "email": ""
+      }
+    ],
+    "genres":[
+        {
+            "primaryKey":1,
+            "name":"Детективы"
+        },
+        {
+            "primaryKey":2,
+            "name":"Романы"
+        },
+        {
+            "primaryKey":3,
+            "name":"Фэнтези"
+        }
+    ],
+    "bookStorage":[
+        {
+            "primaryKey":1,
+            "name":"1",
+            "author":"",
+            "publishYear":2011,
+            "genreKey":1
+
+        },  
+        {
+            "primaryKey":2,
+            "name":"2",
+            "author":"",
+            "publishYear":2011,
+            "genreKey":2
+
+        },   
+        {
+            "primaryKey":3,
+            "name":"3",
+            "author":"",
+            "publishYear":2011,
+            "genreKey":3
+
+        }     
+    ],
+    "preferBook":[
+        {
+            "UserKey":1,
+            "books":[2,1]
+        },
+        {
+            "UserKey":12,
+            "books":[1,3]
+        }
+    ]
+  }
