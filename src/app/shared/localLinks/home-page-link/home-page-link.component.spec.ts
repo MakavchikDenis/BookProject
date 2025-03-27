@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthorizationComponent } from './authorization.component';
+import { HomePageLinkComponent } from './home-page-link.component';
 
-describe('AuthorizationComponent', () => {
-  let component: AuthorizationComponent;
-  let fixture: ComponentFixture<AuthorizationComponent>;
+describe('HomePageLinkComponent', () => {
+  let component: HomePageLinkComponent;
+  let fixture: ComponentFixture<HomePageLinkComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AuthorizationComponent]
+      imports: [HomePageLinkComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AuthorizationComponent);
+    fixture = TestBed.createComponent(HomePageLinkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

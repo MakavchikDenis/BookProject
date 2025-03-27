@@ -1,10 +1,10 @@
 import { provideRouter, Routes } from "@angular/router";
-import { AuthorizationComponent } from "./authorization.component";
-import { AppComponent } from "../../app.component";
 import { ApplicationConfig } from "@angular/core";
+import { HomeComponent } from "./features/home/home.component";
+
 
 const routes:Routes = [
-    {path:"", component:AuthorizationComponent},
+    {path:"", component:HomeComponent},
     {path:"**", redirectTo:"/"}
 ]
 
