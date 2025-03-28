@@ -1,15 +1,22 @@
 import { provideRouter, Routes } from "@angular/router";
 import { ApplicationConfig } from "@angular/core";
-import { HomeComponent } from "./features/home/home.component";
+import { AccessAccountComponent } from "./features/access-account/access-account.component";
+import { AuthenticationComponent } from "./features/access-account/authentication/authentication.component";
+import { RegistrationComponent } from "./features/access-account/registration/registration.component";
 
 
-const routes:Routes = [
-    {path:"", component:HomeComponent},
+const childAccessRoutes:Routes=[
+    {path:"", component:AuthenticationComponent},
+    {path:"reg", component:RegistrationComponent}
+]
+
+const generalRoutes:Routes = [
+    {path:"", component:AccessAccountComponent, children:childAccessRoutes},
     {path:"**", redirectTo:"/"}
 ]
 
 export const AppRoutes:ApplicationConfig = {
     providers: [
-        provideRouter(routes)
+        provideRouter(generalRoutes)
     ]
 }

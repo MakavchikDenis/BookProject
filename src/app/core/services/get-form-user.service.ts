@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { User } from '../../models/user';
-import {FormBuilder,FormGroup, FormControl, Validators,} from '@angular/forms';
+import {FormBuilder,FormGroup, Validators,} from '@angular/forms';
 
 export enum Activity  
 {

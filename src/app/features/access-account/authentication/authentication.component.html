@@ -1,0 +1,8 @@
+<form [formGroup]="mainForm" (ngSubmit)="submit()">
+    
+        <div *ngFor = "let i of getFormFields()">
+            <label>{{i}}</label>
+            <input name="{{this.mainForm.controls[i]}}" formControlName={{i}}/>
+        </div>
+    
+</form>
