@@ -3,6 +3,7 @@ import { ApplicationConfig } from "@angular/core";
 import { AccessAccountComponent } from "./features/access-account/access-account.component";
 import { AuthenticationComponent } from "./features/access-account/authentication/authentication.component";
 import { RegistrationComponent } from "./features/access-account/registration/registration.component";
+import { provideHttpClient } from "@angular/common/http";
 
 
 const childAccessRoutes:Routes=[
@@ -17,6 +18,7 @@ const generalRoutes:Routes = [
 
 export const AppRoutes:ApplicationConfig = {
     providers: [
-        provideRouter(generalRoutes)
+        provideRouter(generalRoutes),
+        provideHttpClient()
     ]
 }

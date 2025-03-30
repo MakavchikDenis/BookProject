@@ -1,13 +1,13 @@
 {
     "users": [
       {
-        "primaryKey":1,
+        "id":1,
         "login": "user1",
         "password": "",
         "email": ""
       },
       {
-        "primaryKey":2,
+        "id":2,
         "login": "user2",
         "password": "",
         "email": ""
@@ -15,21 +15,21 @@
     ],
     "genres":[
         {
-            "primaryKey":1,
+            "id":1,
             "name":"Детективы"
         },
         {
-            "primaryKey":2,
+            "id":2,
             "name":"Романы"
         },
         {
-            "primaryKey":3,
+            "id":3,
             "name":"Фэнтези"
         }
     ],
     "bookStorage":[
         {
-            "primaryKey":1,
+            "id":1,
             "name":"1",
             "author":"",
             "publishYear":2011,
@@ -37,7 +37,7 @@
 
         },  
         {
-            "primaryKey":2,
+            "id":2,
             "name":"2",
             "author":"",
             "publishYear":2011,
@@ -45,7 +45,7 @@
 
         },   
         {
-            "primaryKey":3,
+            "id":3,
             "name":"3",
             "author":"",
             "publishYear":2011,
@@ -55,11 +55,11 @@
     ],
     "preferBook":[
         {
-            "UserKey":1,
+            "id":1,
             "books":[2,1]
         },
         {
-            "UserKey":12,
+            "id":12,
             "books":[1,3]
         }
     ]

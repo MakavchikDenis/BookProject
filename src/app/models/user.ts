@@ -1,6 +1,6 @@
 
 export type User  = {
-    primaryKey:number;
+    id?:number;
     login:string;
     password:string;
     email:string;

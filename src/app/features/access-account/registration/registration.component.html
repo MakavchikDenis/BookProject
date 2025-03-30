@@ -1,1 +1,9 @@
-<p>registration works!</p>
+<p>Registration form</p>
+<form [formGroup]="mainForm" (ngSubmit)="submit()">  
+        <div *ngFor = "let i of getFormFields()">
+            <label>{{i}}</label>
+            <input name="{{i}}" formControlName={{i}}/>
+        </div>
+        <access-app-button [buttonValue]="this.buttonValue"></access-app-button>
+        <access-app-reference [extraContent]="this.extraContentLink" [contentLink]="this.contentLink" [routLink]="this.urlLink"></access-app-reference>    
+</form>
