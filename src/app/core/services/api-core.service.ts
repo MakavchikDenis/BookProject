@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
+import { User } from '../../models/user';
 
 @Injectable()
 export class ApiCoreService {
@@ -13,27 +14,27 @@ export class ApiCoreService {
   };
   
   //возвращаем сущность по Id
-  getEntity(requestUrl:string, id:number):Observable<any>{
-    return this.http.get(requestUrl+"/"+id);
+  getEntity<T>(requestUrl:string, id:number):Observable<T>{
+    return this.http.get<T>(requestUrl+"/"+id);
   }
 
-  //возвращаем сущност по условию
-  getByCondition<T>(requestUrl:string,params:HttpParams):Observable<T>{
-    return this.http.get<T>(requestUrl,{params});
+  //возвращаем сущности по условию
+  getByCondition(requestUrl:string,params:HttpParams):Observable<any>{
+    return this.http.get(requestUrl,{params});
   }
 
-  //добавляем сущеность
-  addData(requestUri:string, body:string):Observable<string>{
-   return this.http.post<string>(requestUri,body)
+  //добавляем сущность
+  addData(requestUri:string, body:string):Observable<any>{
+   return this.http.post(requestUri,body)
   };
 
   // обновляем сущность
-  editData(requestUrl:string,body:string):Observable<string>{
-    return this.http.put<string>(requestUrl,body)
+  editData(requestUrl:string,body:string):Observable<any>{
+    return this.http.put(requestUrl,body)
   };
 
   //удаляем сущность
-  deleteData(requestUrl:string, id:number):Observable<string>{
-    return this.http.delete<string>(requestUrl+'/'+id);
+  deleteData(requestUrl:string, id:number):Observable<any>{
+    return this.http.delete(requestUrl+'/'+id);
   };
 }

@@ -1,66 +1,219 @@
 {
-    "users": [
-      {
-        "id":1,
-        "login": "user1",
-        "password": "",
-        "email": ""
-      },
-      {
-        "id":2,
-        "login": "user2",
-        "password": "",
-        "email": ""
-      }
-    ],
-    "genres":[
-        {
-            "id":1,
-            "name":"Детективы"
-        },
-        {
-            "id":2,
-            "name":"Романы"
-        },
-        {
-            "id":3,
-            "name":"Фэнтези"
-        }
-    ],
-    "bookStorage":[
-        {
-            "id":1,
-            "name":"1",
-            "author":"",
-            "publishYear":2011,
-            "genreKey":1
-
-        },  
-        {
-            "id":2,
-            "name":"2",
-            "author":"",
-            "publishYear":2011,
-            "genreKey":2
-
-        },   
-        {
-            "id":3,
-            "name":"3",
-            "author":"",
-            "publishYear":2011,
-            "genreKey":3
-
-        }     
-    ],
-    "preferBook":[
-        {
-            "id":1,
-            "books":[2,1]
-        },
-        {
-            "id":12,
-            "books":[1,3]
-        }
-    ]
-  }
+  "users": [
+    {
+      "id": "1",
+      "login": "user1",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "2",
+      "login": "user2",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "4",
+      "login": "43534",
+      "password": "34534",
+      "email": "345345"
+    },
+    {
+      "id": "5",
+      "login": "retr",
+      "password": "rte",
+      "email": "ert"
+    },
+    {
+      "id": "4748",
+      "login": "ret4545",
+      "password": "3434",
+      "email": "3434"
+    },
+    {
+      "id": "8764",
+      "login": "ret4545",
+      "password": "3434",
+      "email": "3434"
+    },
+    {
+      "id": "1e51",
+      "login": "ret4545",
+      "password": "3434",
+      "email": "3434"
+    },
+    {
+      "id": "8f01",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "abf8",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "268a",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "dfbc",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "c6d7",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "83de",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "15e9",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "192d",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "70e5",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "dbb2",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "bb47",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "7793",
+      "login": "34534",
+      "password": "345345",
+      "email": "sdfds"
+    },
+    {
+      "id": "5528",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "b1ef",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "d3ec",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "95de",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "97de",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "7716",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "7eb9",
+      "login": "",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "da2f",
+      "login": "",
+      "password": "",
+      "email": ""
+    }
+  ],
+  "genres": [
+    {
+      "id": "1",
+      "name": "Детективы"
+    },
+    {
+      "id": "2",
+      "name": "Романы"
+    },
+    {
+      "id": "3",
+      "name": "Фэнтези"
+    }
+  ],
+  "bookStorage": [
+    {
+      "id": "1",
+      "name": "1",
+      "author": "",
+      "publishYear": 2011,
+      "genreKey": "1"
+    },
+    {
+      "id": "2",
+      "name": "2",
+      "author": "",
+      "publishYear": 2011,
+      "genreKey": 2
+    },
+    {
+      "id": "3",
+      "name": "3",
+      "author": "",
+      "publishYear": 2011,
+      "genreKey": 3
+    }
+  ],
+  "preferBook": [
+    {
+      "id": "1",
+      "books": [
+        2,
+        1
+      ]
+    },
+    {
+      "id": "12",
+      "books": [
+        1,
+        3
+      ]
+    }
+  ]
+}
