@@ -1,11 +1,17 @@
 @use '@angular/material' as mat;
 
+.container {
+  display:flex;
+  justify-content: center;
+}
+
 .example-card {
-    width: 300px;
+    width: 400px;
     @include mat.card-overrides((
         title-text-line-height:30px,
         title-text-size:20px,
-        subtitle-text-size:15px
+        subtitle-text-size:15px,
+        outlined-container-color:#FFFFFF
     ));
   };
  
@@ -18,7 +24,7 @@
   }
 
   mat-form-field {
-    width:200px;
+    width:250px;
     height:70px;
     font-size:12pt;
   }

@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, signal} from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal} from '@angular/core';
 import { Activity, GetFormUserService } from '../../../core/services/get-form-user.service';
 import { Router } from '@angular/router';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +25,7 @@ import {MatChipsModule} from '@angular/material/chips';
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })
-export class SignUpComponent implements OnDestroy  {
+export class SignUpComponent implements  OnDestroy  {
 
     readonly formService = inject(GetFormUserService);
     readonly routService = inject(Router);
@@ -39,15 +39,25 @@ export class SignUpComponent implements OnDestroy  {
     extraContentLink = "Exist account? ";
     contentLink = "Log In";
     urlLink = "/"+(this.routService.config.find(x=>x.component==AccessAccountComponent)?.children?.find(x=>x.component==SignInComponent)?.path ?? "");
-
+    
     //свойства для template
     mainForm:FormGroup = this.formService.getFormField(Activity.Registration);
     hide=true;
-  
+    commonErrorMessage = "";
+
     //изменяем состояние password
     clickEvent(){this.hide=!this.hide;}
   
-  
+    //устанавливаем значение errorMessage
+    setError(event:string){
+      if(event=='Email'){
+        let a = this.mainForm.controls[event].hasError('email');
+        this.commonErrorMessage = this.mainForm.controls[event].hasError('email') ? "Not a valid email" : "";
+        return;
+      }
+        this.commonErrorMessage = this.mainForm.controls[event].hasError('required') ? "You must enter a value": "";
+    }
+
     //массив полей
     getFormFields(): string[]{
       return Object.keys(this.mainForm.controls);

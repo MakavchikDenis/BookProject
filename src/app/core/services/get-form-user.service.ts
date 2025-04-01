@@ -22,9 +22,9 @@ export class GetFormUserService {
       })
     };   
       return this.formBuilder.group({
-        "Login":["", [Validators.required]],
-        "Password":["",Validators.required],
-        "Email":["",Validators.required]
+        "Login":["", [Validators.required, Validators.min(3)]],
+        "Password":["",[Validators.required, Validators.min(3)]],
+        "Email":["",[Validators.required, Validators.min(3),Validators.email]]
       })
   } 
 }
