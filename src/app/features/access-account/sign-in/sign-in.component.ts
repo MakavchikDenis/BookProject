@@ -4,17 +4,18 @@ import { Activity, GetFormUserService } from '../../../core/services/get-form-us
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AccessAppButtonComponent } from '../../../shared/buttons/acces-app/access-app-button.component';
 import { AccessAppReferenceComponent } from '../../../shared/references/access-app-reference/access-app-reference.component';
-import { AppRoutes } from '../../../app-routes';
-import { Route, Router } from '@angular/router';
-import { RegistrationComponent } from '../registration/registration.component';
+import { Router } from '@angular/router';
+import { AccessAccountComponent } from '../access-account.component';
+import { SignUpComponent } from '../sign-up/sign-up.component';
+
 
 @Component({
   selector: 'app-authentication',
   imports: [ReactiveFormsModule,AccessAppButtonComponent,NgFor, AccessAppReferenceComponent],
-  templateUrl: './authentication.component.html',
-  styleUrl: './authentication.component.scss'
+  templateUrl: './sign-in.component.html',
+  styleUrl: './sign-in.component.scss'
 })
-export class AuthenticationComponent {
+export class SignInComponent {
 
   readonly service = inject(GetFormUserService);
   readonly routService = inject(Router);
@@ -26,7 +27,7 @@ export class AuthenticationComponent {
   //контент и урл для link
   extraContentLink = "Need to create an account? ";
   contentLink = "Sign Up";
-  urlLink = "/"+(this.routService.config.find(x=>x.children)?.children?.find(x=>x.component==RegistrationComponent)?.path ?? "");
+  urlLink = "/"+(this.routService.config.find(x=>x.component==AccessAccountComponent)?.children?.find(x=>x.component==SignUpComponent)?.path ?? "");
   
   //массив полей
   getFormFields(): string[]{

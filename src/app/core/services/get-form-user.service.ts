@@ -17,14 +17,14 @@ export class GetFormUserService {
 
     if(kindOfActiv == Activity.Authentication){
       return this.formBuilder.group({
-        "Email": ["", [Validators.required, Validators.email]],
+        "Email": ["", [Validators.required]],
         "Password":["",[Validators.required]] 
       })
     };   
       return this.formBuilder.group({
         "Login":["", [Validators.required]],
         "Password":["",Validators.required],
-        "Email":["",Validators.required, Validators.email]
+        "Email":["",Validators.required]
       })
   } 
 }

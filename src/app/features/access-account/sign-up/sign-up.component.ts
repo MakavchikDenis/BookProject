@@ -2,47 +2,52 @@ import { Component, inject, OnDestroy, signal} from '@angular/core';
 import { Activity, GetFormUserService } from '../../../core/services/get-form-user.service';
 import { Router } from '@angular/router';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AuthenticationComponent } from '../authentication/authentication.component';
 import { AccessAppButtonComponent } from '../../../shared/buttons/acces-app/access-app-button.component';
 import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { AccessAppReferenceComponent } from '../../../shared/references/access-app-reference/access-app-reference.component';
 import { ApiCoreService } from '../../../core/services/api-core.service';
-import {  Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { User } from '../../../models/user';
 import { ApiUrls } from '../../../api-url';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
+import { SignInComponent } from '../sign-in/sign-in.component';
+import { AccessAccountComponent } from '../access-account.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatCardModule} from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
 
 @Component({
   selector: 'app-registration',
-  imports: [ReactiveFormsModule,AccessAppButtonComponent,NgFor, AccessAppReferenceComponent,MatFormFieldModule, MatInputModule, MatIconModule,
-    NgSwitch, NgSwitchCase],
-  templateUrl: './registration.component.html',
-  styleUrl: './registration.component.scss'
+  imports: [ReactiveFormsModule,AccessAppButtonComponent,NgFor, AccessAppReferenceComponent,MatFormFieldModule, MatInputModule, MatIconModule, NgIf,
+    MatCardModule, MatChipsModule, MatProgressBarModule, MatCardModule],
+  templateUrl: './sign-up.component.html',
+  styleUrl: './sign-up.component.scss'
 })
-export class RegistrationComponent implements OnDestroy  {
+export class SignUpComponent implements OnDestroy  {
 
     readonly formService = inject(GetFormUserService);
     readonly routService = inject(Router);
     readonly httpService = inject(ApiCoreService);
     private subscription?:Subscription;
     
-    hide = signal(true);
-    mainForm:FormGroup = this.formService.getFormField(Activity.Registration);
-  
+    //инициализация значений передываемых в children
     //контент для button
     buttonValue ="Sign Up";
     //контент и урл для link
     extraContentLink = "Exist account? ";
     contentLink = "Log In";
-    urlLink = "/"+(this.routService.config.find(x=>x.children)?.children?.find(x=>x.component==AuthenticationComponent)?.path ?? "");
-     
-    clickEvent(event: MouseEvent) {
-    this.hide.set(!this.hide());
-    event.stopPropagation();
-  }
+    urlLink = "/"+(this.routService.config.find(x=>x.component==AccessAccountComponent)?.children?.find(x=>x.component==SignInComponent)?.path ?? "");
 
+    //свойства для template
+    mainForm:FormGroup = this.formService.getFormField(Activity.Registration);
+    hide=true;
+  
+    //изменяем состояние password
+    clickEvent(){this.hide=!this.hide;}
+  
+  
     //массив полей
     getFormFields(): string[]{
       return Object.keys(this.mainForm.controls);

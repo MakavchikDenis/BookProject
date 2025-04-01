@@ -8,5 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class AccessAppButtonComponent {
   @Input() buttonValue:string="";
-  @Input() disabled:boolean=true;
+  @Input() disabled?:boolean;
 }

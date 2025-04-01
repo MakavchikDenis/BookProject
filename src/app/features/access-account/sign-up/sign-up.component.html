@@ -1,0 +1,36 @@
+<div style="display: flex; justify-content: center;">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header>
+            <mat-card-title>Registration form</mat-card-title>
+            <mat-card-subtitle>Please sign up to continue!</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="mainForm"  (ngSubmit)="submit()">  
+                <div *ngFor = "let i of getFormFields()">
+                        <div *ngIf="i!='Password'; else anotherBlock">
+                            <mat-form-field appearance="fill">
+                                <mat-label>{{i}}</mat-label>
+                                <input matInput name="{{i}}" formControlName={{i}} placeholder="Enter your {{i}}">
+                                <mat-icon matTextPrefix>{{i=='Login'?'person':'mail'}}</mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <ng-template #anotherBlock>
+                            <div>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>{{i}}</mat-label>
+                                    <input matInput [type]="this.hide ? 'password' : 'text'" formControlName={{i}} placeholder="Enter your {{i}}" />
+                                    <mat-icon matTextPrefix (click)="clickEvent()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{this.hide ? 'visibility_off' : 'visibility'}} </mat-icon>
+                                </mat-form-field>
+                            </div>     
+                        </ng-template>
+                    </div>
+                    <mat-card-actions>
+                        <access-app-button [buttonValue]="this.buttonValue" [disabled]="this.mainForm.invalid"></access-app-button>
+                    </mat-card-actions>    
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <access-app-reference [extraContent]="this.extraContentLink" [contentLink]="this.contentLink" [routLink]="this.urlLink"></access-app-reference>
+        </mat-card-actions>
+    </mat-card>
+</div>
