@@ -7,21 +7,21 @@
         <mat-card-content>
             <form [formGroup]="mainForm" (ngSubmit)="submit()">  
                 <div *ngFor = "let i of getFormFields()">
-                        <div *ngIf="i!='Password'; else anotherBlock">
+                        <div *ngIf="i!='Password'; else passwordBlock">
                             <mat-form-field appearance="fill">
                                 <mat-label>{{i}}</mat-label>
-                                <input matInput name="{{i}}" formControlName={{i}} placeholder="Enter your {{i}}" (click)="setError(i)">
+                                <input matInput name="{{i}}" formControlName={{i}} placeholder="Enter your {{i}}" (blur)="setError(i)">
                                 <mat-icon matTextPrefix>{{i=='Login'?'person':'mail'}}</mat-icon>
-                                <mat-error *ngIf="this.mainForm.controls[i].invalid">{{this.commonErrorMessage}}</mat-error>
+                                <mat-error *ngIf="this.mainForm.controls[i].invalid">{{i=='Login' ? this.loginError : this.emailError}}</mat-error>  
                             </mat-form-field>
                         </div>
-                        <ng-template #anotherBlock>
+                        <ng-template #passwordBlock>
                             <div>
                                 <mat-form-field appearance="fill">
                                     <mat-label>{{i}}</mat-label>
                                     <input matInput [type]="this.hide ? 'password' : 'text'" formControlName={{i}} placeholder="Enter your {{i}}" (blur)="setError(i)" />
                                     <mat-icon matTextPrefix (click)="clickEvent()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{this.hide ? 'visibility_off' : 'visibility'}} </mat-icon>
-                                    <mat-error *ngIf="this.mainForm.controls[i].invalid">{{this.commonErrorMessage}}</mat-error>
+                                    <mat-error *ngIf="this.mainForm.controls[i].invalid">{{this.passwordError}}</mat-error>
                                 </mat-form-field>
                             </div>     
                         </ng-template>

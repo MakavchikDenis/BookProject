@@ -17,6 +17,30 @@
       "login": "43534",
       "password": "34534",
       "email": "345345"
+    },
+    {
+      "id": "a2e8",
+      "login": "23",
+      "password": "Z}2Wf):yZg*4^2!",
+      "email": "121313@gmail.com"
+    },
+    {
+      "id": "7a67",
+      "login": "222",
+      "password": "Z}2Wf):yZg*4^2!",
+      "email": "121313@gmail.com"
+    },
+    {
+      "id": "d0ab",
+      "login": "Denis",
+      "password": "123",
+      "email": "makavchik@gmail.com"
+    },
+    {
+      "id": "5aeb",
+      "login": "Denis",
+      "password": "11121987",
+      "email": "makav@gmail.com"
     }
   ],
   "genres": [
@@ -46,30 +70,39 @@
       "name": "2",
       "author": "",
       "publishYear": 2011,
-      "genreKey": 2
+      "genreKey": "2"
     },
     {
       "id": "3",
       "name": "3",
       "author": "",
       "publishYear": 2011,
-      "genreKey": 3
+      "genreKey": "3"
     }
   ],
   "preferBook": [
     {
       "id": "1",
-      "books": [
-        2,
-        1
-      ]
+      "books": ["2","1"],
+      "userId":"1"
     },
     {
-      "id": "12",
-      "books": [
-        1,
-        3
-      ]
+      "id": "2",
+      "books": ["1","3"],
+      "userId":"2"
+    }
+  ],
+  "author":[{
+      "id":"1",
+      "name":"name1"
+    },
+    {
+      "id":"2",
+      "name":"name1"
+    },
+    {
+      "id":"3",
+      "name":"name1"
     }
   ]
 }

@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { User } from '../../models/user';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ApiCoreService {
 
   constructor(private http:HttpClient) { }
@@ -19,8 +21,8 @@ export class ApiCoreService {
   }
 
   //возвращаем сущности по условию
-  getByCondition(requestUrl:string,params:HttpParams):Observable<any>{
-    return this.http.get(requestUrl,{params});
+  getByCondition(requestUrl:string,_params:HttpParams):Observable<any>{
+    return this.http.get(requestUrl, {params:_params});
   }
 
   //добавляем сущность

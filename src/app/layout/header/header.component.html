@@ -1,0 +1,18 @@
+<div>
+    <mat-toolbar color="primary" class="header">
+        <div class="main-navigation">
+            <img src="" alt="">
+            <a mat-button routerLink="{{this.signIn}}" routerLinkActive="activeLink">HomePage</a>
+            <a mat-button routerLink="{{this.signIn}}" routerLinkActive="activeLink" >Categories</a>
+            <a mat-flat-button routerLink="{{this.signIn}}" routerLinkActive="activeLink" >Add New</a>    
+        </div>
+        <div class="access-navigation">
+            <a mat-stroked-button routerLink="{{this.signUp}}" routerLinkActive="activeLink">
+            <mat-icon matTextPrefix>person_add</mat-icon>
+            Sign Up</a>
+            <a mat-flat-button routerLink="{{this.signIn}}" routerLinkActive="activeLink">
+            <mat-icon matTextPrefix>person</mat-icon>
+            Sign In</a>
+        </div>
+    </mat-toolbar>
+</div>

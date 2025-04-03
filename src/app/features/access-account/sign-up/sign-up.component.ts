@@ -8,7 +8,7 @@ import { AccessAppReferenceComponent } from '../../../shared/references/access-a
 import { ApiCoreService } from '../../../core/services/api-core.service';
 import { Subscription } from 'rxjs';
 import { User } from '../../../models/user';
-import { ApiUrls } from '../../../api-url';
+import { ApiUrls } from '../../../shared/other/api-url';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
@@ -17,6 +17,10 @@ import { AccessAccountComponent } from '../access-account.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
+import { MessageValidDictionery } from '../../../shared/other/messag-valid-dictionery';
+import { AppSignalService } from '../../../core/services/app-signal.service';
+import { MessageKind } from '../../../shared/other/messag-snack-bar';
+
 
 @Component({
   selector: 'app-registration',
@@ -30,6 +34,7 @@ export class SignUpComponent implements  OnDestroy  {
     readonly formService = inject(GetFormUserService);
     readonly routService = inject(Router);
     readonly httpService = inject(ApiCoreService);
+    readonly appSignalService = inject (AppSignalService);
     private subscription?:Subscription;
     
     //инициализация значений передываемых в children
@@ -43,19 +48,28 @@ export class SignUpComponent implements  OnDestroy  {
     //свойства для template
     mainForm:FormGroup = this.formService.getFormField(Activity.Registration);
     hide=true;
-    commonErrorMessage = "";
+    loginError="";
+    passwordError="";
+    emailError="";
 
-    //изменяем состояние password
+
+    //изменяем состояние icon password
     clickEvent(){this.hide=!this.hide;}
   
     //устанавливаем значение errorMessage
     setError(event:string){
-      if(event=='Email'){
-        let a = this.mainForm.controls[event].hasError('email');
-        this.commonErrorMessage = this.mainForm.controls[event].hasError('email') ? "Not a valid email" : "";
-        return;
+      switch (event) {
+        case "Login":{this.loginError= this.mainForm.controls[event].hasError("required") ? MessageValidDictionery.getMessage("required", event) : ""; break;}
+        case "Password":{this.passwordError = this.mainForm.controls[event].hasError("required") ? MessageValidDictionery.getMessage("required",event) : "";break}
+        case "Email":{
+          if(this.mainForm.controls[event].hasError("required")){
+            this.emailError = MessageValidDictionery.getMessage("required",event);
+          }
+          else if(this.mainForm.controls[event].hasError("email")){
+            this.emailError = MessageValidDictionery.getMessage("email",event);
+          }
+        }  
       }
-        this.commonErrorMessage = this.mainForm.controls[event].hasError('required') ? "You must enter a value": "";
     }
 
     //массив полей
@@ -64,7 +78,7 @@ export class SignUpComponent implements  OnDestroy  {
     }
 
     
-    //получаем данные формы, отправляем в апи
+    //получаем данные формы, отправляем в апи и перенаправляем
     submit(){
        let user:User ={
         login:this.mainForm.controls["Login"].value,
@@ -73,10 +87,13 @@ export class SignUpComponent implements  OnDestroy  {
        };
        
        this.subscription = this.httpService.addData(ApiUrls.users, JSON.stringify(user)).subscribe({
-        next:(result)=>console.log(result),
+        next:(result)=>{ 
+          this.appSignalService.snackBar.set([MessageKind.Success]);
+          this.routService.navigate([""]);
+          },
         error:(error)=>{
           console.log(error);
-        }
+          this.appSignalService.snackBar.set([MessageKind.Error])}
        });
 
     };

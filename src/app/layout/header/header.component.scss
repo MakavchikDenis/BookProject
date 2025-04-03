@@ -1,0 +1,28 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000; 
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+
+  .main-navigation {
+    display: table-cell;
+    max-width: 300px;
+  }
+
+  .access-navigation {
+    display: table-cell;
+    max-width: 300px;
+  }
+
+  a {
+    margin: 10px;
+  }
+
+  // img{
+  //   width: 717px;
+  //   height: 561px;
+  // }

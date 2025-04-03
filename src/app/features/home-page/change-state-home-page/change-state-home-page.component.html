@@ -1,0 +1,10 @@
+<div>
+    <mat-form-field>
+        <mat-label>Author</mat-label>
+        <mat-select [(ngModel)]="this.selectAuthor">
+            @for (item of this.authors; track item) {
+                <mat-option [value]="option.value">{{option.label}}</mat-option>
+              }
+        </mat-select>
+    </mat-form-field>
+</div>

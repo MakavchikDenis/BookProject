@@ -2,3 +2,32 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
+/* глобальные стили для snackBar    */
+ .extraSnackBarSuccess simple-snack-bar {
+    background-color: #98FB98 !important;
+    border-radius: 5px;
+    text-align:center;
+}
+.extraSnackBarError simple-snack-bar {
+    background-color: #F08080 !important;
+    border-radius: 5px;
+    text-align:center;
+}
+
+.extraSnackBarNotice {
+    background-color: #E0FFFF !important;
+    border-radius: 5px;
+    text-align:center;
+}
+
+.mat-mdc-snack-bar-label {
+    font-size: 20px !important;
+}
+.mat-mdc-snackbar-surface {
+    border-radius: 5px !important;
+    padding-right: 0px !important;
+}
+
+
+
