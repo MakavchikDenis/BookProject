@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChangeStateHomePageComponent } from './change-state-home-page.component';
+import { ContentConfigComponent } from './content-config.component';
 
 describe('ChangeStateHomePageComponent', () => {
-  let component: ChangeStateHomePageComponent;
-  let fixture: ComponentFixture<ChangeStateHomePageComponent>;
+  let component: ConfigContentComponent;
+  let fixture: ComponentFixture<ConfigContentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChangeStateHomePageComponent]
+      imports: [ConfigContentComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ChangeStateHomePageComponent);
+    fixture = TestBed.createComponent(ConfigContentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

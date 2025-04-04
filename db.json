@@ -61,21 +61,21 @@
     {
       "id": "1",
       "name": "1",
-      "author": "",
+      "author": "Petr",
       "publishYear": 2011,
       "genreKey": "1"
     },
     {
       "id": "2",
       "name": "2",
-      "author": "",
+      "author": "Denis",
       "publishYear": 2011,
       "genreKey": "2"
     },
     {
       "id": "3",
       "name": "3",
-      "author": "",
+      "author": "Semen",
       "publishYear": 2011,
       "genreKey": "3"
     }
@@ -90,19 +90,6 @@
       "id": "2",
       "books": ["1","3"],
       "userId":"2"
-    }
-  ],
-  "author":[{
-      "id":"1",
-      "name":"name1"
-    },
-    {
-      "id":"2",
-      "name":"name1"
-    },
-    {
-      "id":"3",
-      "name":"name1"
     }
   ]
 }

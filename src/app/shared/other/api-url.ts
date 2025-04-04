@@ -11,6 +11,6 @@ type ApiUrlsWrapper={
 export const ApiUrls:ApiUrlsWrapper={
     users:host.concat("users"),
     genres:host.concat("genres"),
-    bookStorage:host.concat("genres"),
+    bookStorage:host.concat("bookStorage"),
     preferBook:host.concat("preferBook")
 }

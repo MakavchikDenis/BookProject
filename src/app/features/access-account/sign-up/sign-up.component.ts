@@ -7,7 +7,7 @@ import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/c
 import { AccessAppReferenceComponent } from '../../../shared/references/access-app-reference/access-app-reference.component';
 import { ApiCoreService } from '../../../core/services/api-core.service';
 import { Subscription } from 'rxjs';
-import { User } from '../../../models/user';
+import { User } from '../../../shared/models/user';
 import { ApiUrls } from '../../../shared/other/api-url';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';

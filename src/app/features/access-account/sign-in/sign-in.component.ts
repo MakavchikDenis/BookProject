@@ -19,7 +19,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HttpParams } from '@angular/common/http';
 import { ApiUrls } from '../../../shared/other/api-url';
-import { User } from '../../../models/user';
+import { User } from '../../../shared/models/user';
 import { MessageKind } from '../../../shared/other/messag-snack-bar';
 
 
