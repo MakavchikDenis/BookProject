@@ -3,7 +3,7 @@ import { Activity, GetFormUserService } from '../../../core/services/get-form-us
 import { Router } from '@angular/router';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AccessAppButtonComponent } from '../../../shared/buttons/acces-app/access-app-button.component';
-import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { AccessAppReferenceComponent } from '../../../shared/references/access-app-reference/access-app-reference.component';
 import { ApiCoreService } from '../../../core/services/api-core.service';
 import { Subscription } from 'rxjs';

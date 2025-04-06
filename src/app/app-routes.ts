@@ -4,6 +4,7 @@ import { AccessAccountComponent } from "./features/access-account/access-account
 import { provideHttpClient } from "@angular/common/http";
 import { SignInComponent } from "./features/access-account/sign-in/sign-in.component";
 import { SignUpComponent } from "./features/access-account/sign-up/sign-up.component";
+import { ContentHomePageComponent } from "./features/home-page/content-home-page/content-home-page.component";
 
 
 const childAccessRoutes:Routes=[
@@ -13,6 +14,7 @@ const childAccessRoutes:Routes=[
 
 const generalRoutes:Routes = [
     {path:"", component:AccessAccountComponent, children:childAccessRoutes},
+    {path:"home", component:ContentHomePageComponent},
     {path:"**", redirectTo:"/"}
 ]
 

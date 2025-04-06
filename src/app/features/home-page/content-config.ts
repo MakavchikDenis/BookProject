@@ -1,4 +1,6 @@
 export enum ContentConfig  {
     SelectAuthor,
-    OnlyFavorities
+    OnlyFavorites,
+    SearchText,
+    None
 }

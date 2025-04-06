@@ -1,0 +1,22 @@
+<div>
+    <mat-card class="card" appearance="outlined">
+        <img mat-card-image src="{{this.img}}" alt="">
+        <mat-card-content>
+            <div>
+                <p>
+                    <strong>{{this.name}}</strong>
+                </p>
+                <p *ngIf="this.prefer">
+                    <mat-icon>favorite</mat-icon>
+                </p>
+            </div>
+            <div>
+                <p id="author">{{this.author}}</p>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <a mat-stroked-button>Edit</a>
+            <button mat-button (click)="removeFromFavorite()">Remove from favorite</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

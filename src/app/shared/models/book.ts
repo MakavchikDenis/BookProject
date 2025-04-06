@@ -3,5 +3,7 @@ export type Book={
     name:string,
     author:string,
     publishYear:string,
-    genreKey:string
+    genreKey:string,
+    imgSrc?:string,
+    prefer?:boolean;  
 }

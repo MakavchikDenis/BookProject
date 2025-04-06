@@ -46,37 +46,68 @@
   "genres": [
     {
       "id": "1",
-      "name": "Детективы"
+      "name": "Mystery"
     },
     {
       "id": "2",
-      "name": "Романы"
+      "name": "Romance"
     },
     {
       "id": "3",
-      "name": "Фэнтези"
+      "name": "Science"
+    },
+    {
+      "id": "4",
+      "name": "Fiction"
     }
   ],
   "bookStorage": [
     {
       "id": "1",
-      "name": "1",
-      "author": "Petr",
-      "publishYear": 2011,
+      "name": "Python",
+      "author": "S. Semenov",
+      "publishYear": 2018,
+      "imgSrc":"/assets/imgs/1.png",
       "genreKey": "1"
     },
     {
       "id": "2",
-      "name": "2",
-      "author": "Denis",
-      "publishYear": 2011,
+      "name": "Type Script",
+      "author": "B. Cherny ",
+      "publishYear": 2019,
+      "imgSrc":"/assets/imgs/2.png",
       "genreKey": "2"
     },
     {
       "id": "3",
-      "name": "3",
-      "author": "Semen",
-      "publishYear": 2011,
+      "name": "Java",
+      "author": "R. Lavore",
+      "publishYear": 2020,
+      "imgSrc":"/assets/imgs/3.png",
+      "genreKey": "3"
+    },
+    {
+      "id": "4",
+      "name": "C++",
+      "author": "R. Lavore",
+      "publishYear": 2021,
+      "imgSrc":"/assets/imgs/4.png",
+      "genreKey": "3"
+    },
+    {
+      "id": "5",
+      "name": "C#",
+      "author": "C. Althoff",
+      "publishYear": 2018,
+      "imgSrc":"/assets/imgs/5.png",
+      "genreKey": "3"
+    },
+    {
+      "id": "6",
+      "name": "Java Script",
+      "author": "H. Kirupa ",
+      "publishYear": 2014,
+      "imgSrc":"/assets/imgs/6.png",
       "genreKey": "3"
     }
   ],

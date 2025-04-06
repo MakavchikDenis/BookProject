@@ -7,6 +7,7 @@ import { AccessAccountComponent } from '../../features/access-account/access-acc
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { ContentHomePageComponent } from '../../features/home-page/content-home-page/content-home-page.component';
 
 type Route={
   key:string,
@@ -24,4 +25,5 @@ export class HeaderComponent {
   readonly router=inject(Router);
   signUp:string=this.router.config.find(x=>x.component==AccessAccountComponent)?.children?.find(x=>x.component==SignUpComponent)?.path ?? "";
   signIn:string = this.router.config.find(x=>x.component==AccessAccountComponent)?.children?.find(x=>x.component==SignInComponent)?.path ??"";
+  home:string = this.router.config.find(x=>x.component==ContentHomePageComponent)?.path ?? "";
 }

@@ -1,10 +1,24 @@
 <div>
     <mat-form-field>
         <mat-label>Author</mat-label>
-        <mat-select [(ngModel)]="this.selectAuthor">
-            @for (item of this.authors; track item) {
-                <mat-option [value]="option.value">{{option.label}}</mat-option>
-              }
+        <mat-select [(ngModel)]="this.selectAuthor" (selectionChange)="onChangeContent('author')">
+            @for (item of ["None"].concat(this.authors); track $index) {
+            <mat-option [value]="item">{{item}}</mat-option>
+            }
         </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Sort By</mat-label>
+        <mat-select [(ngModel)]="this.sortBy">
+            @for (item of this.arraySortBy; track item) {
+            <mat-option [value]="item">{{item}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+    <mat-slide-toggle [(ngModel)]="this.onlyFavorites" (change)="onChangeContent('favorites')">Show only favourites</mat-slide-toggle>
+    <mat-form-field>
+        <mat-label>Search</mat-label>
+        <mat-icon matTextPrefix>search</mat-icon>
+        <input matInput [(ngModel)]="this.searchName" (keypress)="this.handlerKeyUp($event)">
     </mat-form-field>
 </div>

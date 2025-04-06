@@ -1,91 +1,69 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ContentConfigComponent } from '../content-config/content-config.component';
 import { ContentConfig } from '../content-config';
-import { Author } from '../../../shared/models/author';
 import { ApiCoreService } from '../../../core/services/api-core.service';
 import { Service } from '../service';
 import { ApiUrls } from '../../../shared/other/api-url';
 import { Book } from '../../../shared/models/book';
 import { AppSignalService } from '../../../core/services/app-signal.service';
-import { MessageKind } from '../../../shared/other/messag-snack-bar';
-import { map, Subscription, switchMap } from 'rxjs';
-import { HttpParams } from '@angular/common/http';
+import { Preference } from '../../../shared/models/preference';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { NgFor } from '@angular/common';
+import { BookItemComponent } from '../../../shared/components/book-item/book-item.component';
+
 
 @Component({
   selector: 'app-content-home-page',
-  imports: [ContentConfigComponent],
+  imports: [ContentConfigComponent,MatGridListModule,NgFor, BookItemComponent],
   templateUrl: './content-home-page.component.html',
   styleUrl: './content-home-page.component.scss'
 })
 export class ContentHomePageComponent implements OnInit {
 
-  readonly httpService:ApiCoreService = inject(ApiCoreService);
-  readonly appSignalService = inject (AppSignalService);
+  readonly httpService: ApiCoreService = inject(ApiCoreService);
+  readonly appSignalService = inject(AppSignalService);
 
-  //handlerService:Service = new Service(this.httpService,this.appSignalService);
-  books=signal<Book[]>([]);
-  authors=signal<string[]>([]);
+  handlerService: Service = new Service(this.httpService, this.appSignalService);
+  books = signal<Book[]>([]);
+  authors = signal<string[]>([]);
+  nameBooks = signal<string[]>([]);
 
-  //первичная инициализация массивов
+  preferencesUser?:Preference
+
+  //инициализация сигналов из сервиса 
   ngOnInit(): void {
-    this.httpService.getAllData(ApiUrls.bookStorage).pipe(map(x=>x)).subscribe({
-        next:(x:any)=>{
-          console.log(x)
-          this.books.set(x["bookStorage"]);
-          this.authors.set(this.books().flatMap<string>(x=>x.author))},
-        error:(err)=>{
-          console.log(err);
-          this.appSignalService?.snackBar.set([MessageKind.Error]) 
-          }
-      })
+    this.handlerService.SimpleRequest(ApiUrls.bookStorage, this.books, this.authors,this.nameBooks);
+    this.handlerService.EntityPreferencesRequest(ApiUrls.preferBook,"1",this.preferencesUser);
+    this.books().forEach(x=>this.preferencesUser?.books.includes(x.id) ? x.prefer==true : x.prefer==false);
   }
 
-  //реализация запросов  на сервер через конфиг
-  onChangeContent(config:[ContentConfig,string]){
-    if(config[0]==ContentConfig.SelectAuthor){
-      let params = new HttpParams().set("author",config[1]);
-      this.httpService.getByCondition(ApiUrls.bookStorage,params).pipe(map(x=>x)).subscribe({
-          next:(x:any)=>{
-            console.log(x);
-            this.books.set(x["bookStorage"])},
-          error:(err)=>{
-            console.log(err);
-            this.appSignalService?.snackBar.set([MessageKind.Error]) 
-          }
-      })
+
+  //реализация запросов на сервер через конфиг
+  onChangeContent(config: [ContentConfig, string]) {
+    //запрос по автору либо по названию (searchfield content)
+    // если config[1] = "" (default)=> выводим все книги
+    if (config[1] == "") {
+      this.handlerService.SimpleRequest(ApiUrls.bookStorage, this.books, this.authors,this.nameBooks);
+    }
+    else if (config[0] != ContentConfig.OnlyFavorites) {
+      this.handlerService.RequestWithParam(
+        ApiUrls.bookStorage,
+        config[0] == ContentConfig.SelectAuthor ? ["author", config[1]] : ["name", config[1]],
+        this.books
+      )
+    }
+    //запрос на пользовательские книги
+    else if (config[0] == ContentConfig.OnlyFavorites) {
+      this.handlerService.UserPreferencesRequest(
+        ApiUrls.preferBook,
+        ApiUrls.bookStorage,
+        this.books,
+        "2"
+      )
     }
     else {
-      let params = new HttpParams().set("userId",config[1]);
-      let bookIdArray:string[] = [];
-      //получаем данные по id книгам
-      this.httpService.getByCondition(ApiUrls.preferBook,params)
-        .pipe(map(x=>x.books))
-        .subscribe({
-          next:(x:any)=>{
-            console.log(x)
-            bookIdArray=x},
-        error:(err)=>{
-          console.log(err);
-          this.appSignalService?.snackBar.set([MessageKind.Error]) 
-        }
-      });
-      if(bookIdArray.length!=0){
-        this.httpService.getAllData(ApiUrls.bookStorage)
-          .pipe(x=>x)
-          .subscribe({
-            next:(x:any)=>{
-              console.log(x);
-              let array:Book[] = x["bookStorage"];
-              this.books.set(array.forEach(x=>bookIdArray.find(z=>z==x.id))))
-              },
-            error:(err)=>{
-              console.log(err);
-              this.appSignalService?.snackBar.set([MessageKind.Error]) 
-            }
-        }) 
-      }
+      this.handlerService.SimpleRequest(ApiUrls.bookStorage, this.books, this.authors, this.nameBooks);
     }
   }
 }
-
 

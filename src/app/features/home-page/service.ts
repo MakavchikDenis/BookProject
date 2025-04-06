@@ -4,62 +4,93 @@ import { Book } from "../../shared/models/book";
 import { ContentConfig } from "./content-config";
 import { AppSignalService } from "../../core/services/app-signal.service";
 import { MessageKind } from "../../shared/other/messag-snack-bar";
-import { toSignal } from '@angular/core/rxjs-interop';
 import { HttpParams } from "@angular/common/http";
-import { ApiUrls } from "../../shared/other/api-url";
+import { map, switchMap } from "rxjs";
 
 
 
 export class Service {
-    
-    httpServise?:ApiCoreService
-    appSignalService?:AppSignalService
-    requestResult = signal<Book[]>([]);
-    authors= signal<string[]>([]);
 
-    constructor (http:ApiCoreService, signalService:AppSignalService){
-        this.httpServise=http;
-        this.appSignalService= signalService;   
+    httpServise: ApiCoreService
+    appSignalService: AppSignalService
+
+
+    constructor(http: ApiCoreService, signalService: AppSignalService) {
+        this.httpServise = http;
+        this.appSignalService = signalService;
     }
 
-    performRequest(url:string, config?:ContentConfig)
-    {
-        this.httpServise?.getAllData(url).subscribe({
-            next:(x:any)=>{
-                this.requestResult.set(x["bookStorage"]);
-                this.authors.set(this.requestResult().flatMap<string>(x=>x.author));
-                console.log(x)},
-            error:(err)=>{
-                console.log(err);
-                this.appSignalService?.snackBar.set([MessageKind.Error]) 
-            }
-        })
+
+    SimpleRequest(urlMainStorage: string, referenceSigBooks: any, referenceSigAuthor: any, referenceSigNameBooks: any) {
+        this.httpServise.getAllData(urlMainStorage).
+            pipe(map(x => x)).subscribe({
+                next: (x) => {
+                    referenceSigBooks.set(x);
+                    console.log(referenceSigBooks());
+                    referenceSigAuthor.set((referenceSigBooks() as Book[]).map<string>(x => x.author));
+                    console.log(referenceSigAuthor());
+                    referenceSigNameBooks.set((referenceSigBooks() as Book[]).map<string>(x => x.name));
+                    console.log(referenceSigNameBooks());
+                },
+                error: (err) => {
+                    console.log(err);
+                    this.appSignalService?.snackBar.set([MessageKind.Error])
+                }
+            })
     }
 
-    performRequestWithParam(url:string, config:[ContentConfig,string]){
-        if(config[0]==ContentConfig.SelectAuthor){
-            let params = new HttpParams().set("author",config[1]);
-            this.httpServise?.getByCondition(url,params).subscribe({
-                next:(x:any)=>{
-                    this.requestResult.set(x["bookStorage"]);
-                    console.log(x)},
-                error:(err)=>{
+    RequestWithParam(url: string, param: [string, string], referenceSigBooks: any) {
+        let params = new HttpParams().set(param[0], param[1]);
+        this.httpServise.getByCondition(url, params).
+            pipe(map(x => x))
+            .subscribe({
+                next: (x: any) => {
+                    referenceSigBooks.set(x);
+                    console.log(referenceSigBooks());
+                },
+                error: (err) => {
                     console.log(err);
-                    this.appSignalService?.snackBar.set([MessageKind.Error]) 
+                    this.appSignalService.snackBar.set([MessageKind.Error])
                 }
             })
-        }
-        else {
-            let params = new HttpParams().set("author",config[1]);
-            this.httpServise?.getByCondition(url,params).subscribe({
-                next:(x:any)=>{
-                    this.requestResult.set(x["bookStorage"]);
-                    console.log(x)},
-                error:(err)=>{
+    }
+
+    UserPreferencesRequest(urlPreferSource: string, urlMainStorage: string, referenceSigBooks: any, userId: string) {
+        let params = new HttpParams().set("userId", userId);
+        this.httpServise.getByCondition(urlPreferSource, params)
+            .pipe(map(x => {
+                console.log(x[0].books);
+                return x[0].books
+            }),
+                switchMap(result => {
+                    return this.httpServise.getAllData(urlMainStorage)
+                        .pipe(map((x: Book[]) => x.filter(z => result.includes(z.id))),
+                        map((x:Book[])=>x.map(z=>{z.prefer=true;return z})))         
+                }))
+            .subscribe({
+                next: (x: any) => {
+                    console.log(x);
+                    referenceSigBooks.set(x)
+                },
+                error: (err) => {
                     console.log(err);
-                    this.appSignalService?.snackBar.set([MessageKind.Error]) 
+                    this.appSignalService?.snackBar.set([MessageKind.Error])
+                }
+            });
+    }
+
+    EntityPreferencesRequest(urlPreferSource:string, userId:string,referencePreferUser:any){
+        let params = new HttpParams().set("userId", userId);
+        this.httpServise.getByCondition(urlPreferSource,params).
+            pipe(map(x => x)).subscribe({
+                next: (x) => {
+                    referencePreferUser = x;    
+                    console.log(referencePreferUser);
+                },
+                error: (err) => {
+                    console.log(err);
+                    this.appSignalService?.snackBar.set([MessageKind.Error])
                 }
             })
-        }
     }
 }

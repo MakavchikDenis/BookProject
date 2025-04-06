@@ -8,7 +8,7 @@
       "schematics": {
         "@schematics/angular:component": {
           "standalone": true,
-          "style":"scss" 
+          "style": "scss"
         },
         "@schematics/angular:directive": {
           "standalone": true
@@ -32,8 +32,9 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              "src/assets",
               {
-                "glob": "**/*",
+                "glob": "src/assets/imgs",
                 "input": "public"
               }
             ],
