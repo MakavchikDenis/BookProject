@@ -14,7 +14,7 @@ import { BookItemComponent } from '../../../shared/components/book-item/book-ite
 
 @Component({
   selector: 'app-content-home-page',
-  imports: [ContentConfigComponent,MatGridListModule,NgFor, BookItemComponent],
+  imports: [ContentConfigComponent,MatGridListModule, BookItemComponent],
   templateUrl: './content-home-page.component.html',
   styleUrl: './content-home-page.component.scss'
 })
@@ -32,9 +32,9 @@ export class ContentHomePageComponent implements OnInit {
 
   //инициализация сигналов из сервиса 
   ngOnInit(): void {
-    this.handlerService.SimpleRequest(ApiUrls.bookStorage, this.books, this.authors,this.nameBooks);
-    this.handlerService.EntityPreferencesRequest(ApiUrls.preferBook,"1",this.preferencesUser);
-    this.books().forEach(x=>this.preferencesUser?.books.includes(x.id) ? x.prefer==true : x.prefer==false);
+    
+    this.handlerService.BaseRequest(ApiUrls.preferBook, ApiUrls.bookStorage, this.books, this.authors,this.nameBooks);
+    
   }
 
 
@@ -43,13 +43,15 @@ export class ContentHomePageComponent implements OnInit {
     //запрос по автору либо по названию (searchfield content)
     // если config[1] = "" (default)=> выводим все книги
     if (config[1] == "") {
-      this.handlerService.SimpleRequest(ApiUrls.bookStorage, this.books, this.authors,this.nameBooks);
+      this.handlerService.BaseRequest(ApiUrls.preferBook, ApiUrls.bookStorage, this.books, this.authors,this.nameBooks);
     }
     else if (config[0] != ContentConfig.OnlyFavorites) {
-      this.handlerService.RequestWithParam(
+      this.handlerService.RequestWithParamExtension(
+        ApiUrls.preferBook,
         ApiUrls.bookStorage,
         config[0] == ContentConfig.SelectAuthor ? ["author", config[1]] : ["name", config[1]],
-        this.books
+        this.books,
+        "2"
       )
     }
     //запрос на пользовательские книги
@@ -61,8 +63,8 @@ export class ContentHomePageComponent implements OnInit {
         "2"
       )
     }
-    else {
-      this.handlerService.SimpleRequest(ApiUrls.bookStorage, this.books, this.authors, this.nameBooks);
+    else {   
+      this.handlerService.BaseRequest(ApiUrls.preferBook, ApiUrls.bookStorage, this.books, this.authors,this.nameBooks);
     }
   }
 }

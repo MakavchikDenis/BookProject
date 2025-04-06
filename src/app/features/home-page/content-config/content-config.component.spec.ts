@@ -3,16 +3,16 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ContentConfigComponent } from './content-config.component';
 
 describe('ChangeStateHomePageComponent', () => {
-  let component: ConfigContentComponent;
-  let fixture: ComponentFixture<ConfigContentComponent>;
+  let component: ContentConfigComponent;
+  let fixture: ComponentFixture<ContentConfigComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ConfigContentComponent]
+      imports: [ContentConfigComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ConfigContentComponent);
+    fixture = TestBed.createComponent(ContentConfigComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
