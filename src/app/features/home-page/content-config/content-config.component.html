@@ -1,21 +1,21 @@
-<div>
-    <mat-form-field>
+<div class="z">
+    <mat-form-field class="customStyle">
         <mat-label>Author</mat-label>
-        <mat-select [(ngModel)]="this.selectAuthor" (selectionChange)="onChangeContent('author')">
-            @for (item of ["None"].concat(this.authors); track $index) {
+        <mat-select [(ngModel)]="this.selectAuthor" (selectionChange)="onFilterContent('author')">
+            @for (item of  ["None"].concat(this.authors); track $index) {
             <mat-option [value]="item">{{item}}</mat-option>
             }
         </mat-select>
     </mat-form-field>
     <mat-form-field>
         <mat-label>Sort By</mat-label>
-        <mat-select [(ngModel)]="this.sortBy">
+        <mat-select [(ngModel)]="this.sortBy" (selectionChange)="onSortContent()">
             @for (item of this.arraySortBy; track item) {
             <mat-option [value]="item">{{item}}</mat-option>
             }
         </mat-select>
     </mat-form-field>
-    <mat-slide-toggle [(ngModel)]="this.onlyFavorites" (change)="onChangeContent('favorites')">Show only favourites</mat-slide-toggle>
+    <mat-slide-toggle [(ngModel)]="this.onlyFavorites" (change)="onFilterContent('favorites')">Show only favourites</mat-slide-toggle>
     <mat-form-field>
         <mat-label>Search</mat-label>
         <mat-icon matTextPrefix>search</mat-icon>

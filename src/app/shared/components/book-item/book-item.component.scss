@@ -1,5 +1,12 @@
 
+  mat-card-actions {
+    justify-content: space-between;
+  }
+  mat-card-content div{ 
+    display: flex;
+    justify-content: space-between;
+  }
   img {
     width: 300px;
-    height: 350px;
+    height: 300px;
   }

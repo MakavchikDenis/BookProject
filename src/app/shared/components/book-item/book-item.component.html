@@ -16,7 +16,8 @@
         </mat-card-content>
         <mat-card-actions>
             <a mat-stroked-button>Edit</a>
-            <button mat-button (click)="removeFromFavorite()">Remove from favorite</button>
+            <button *ngIf="this.prefer; else blockAdd" mat-button (click)="removeFromFavorite()">Remove from favorite</button>
+            <ng-template #blockAdd><button mat-button (click)="addToFavorite()">Add to Favorite</button></ng-template>
         </mat-card-actions>
     </mat-card>
 </div>

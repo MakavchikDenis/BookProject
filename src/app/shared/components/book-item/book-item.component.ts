@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 
 @Component({
@@ -17,9 +18,18 @@ export class BookItemComponent {
    @Input() author:string="";
    @Input() img:string="";
    @Input() prefer:boolean|undefined;
-   @Output() removeEvent=new EventEmitter<string>();
+   @Output() eventToParent=new EventEmitter<[boolean,string]>();
+   @Output() eventToRedirect= new new EventEmitter<string>();
+
+   addToFavorite(){
+      this.eventToParent.emit([true,this.id]);
+   }
 
    removeFromFavorite(){
-      this.removeEvent.emit(this.id);
+      this.eventToParent.emit([false,this.id]);
+   }
+
+   redirectTo(){
+     //this.eventToRedirect.emit(this.id);
    }
 }

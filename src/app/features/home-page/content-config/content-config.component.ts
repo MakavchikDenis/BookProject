@@ -4,11 +4,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { ApiCoreService } from '../../../core/services/api-core.service';
-import { ContentConfig } from '../content-config';
+import { ContentConfig, SortKind } from '../content-config';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
-import { map, Observable, startWith } from 'rxjs';
+;
 
 @Component({
   selector: 'app-config-content',
@@ -19,8 +19,8 @@ import { map, Observable, startWith } from 'rxjs';
 export class ContentConfigComponent  {
   
   @Input() authors:string[]=[]
-  @Input() nameBooks:string[]=[]
-  @Output() configChange = new EventEmitter<[ContentConfig,string]>();
+  @Output() filteringContent = new EventEmitter<[ContentConfig,string]>();
+  @Output() sortingContent = new EventEmitter<SortKind>();
 
   service = inject(ApiCoreService);
   
@@ -35,19 +35,23 @@ export class ContentConfigComponent  {
 
   handlerKeyUp(event:any){
     if(event.keyCode===13){
-      this.onChangeContent("search");
+      this.onFilterContent("search");
     }
   }
 
-  onChangeContent(event:string){
+  onSortContent(){
+    this.sortingContent.emit(this.sortBy=="None"? SortKind.None : this.sortBy=="Name" ? SortKind.Name : SortKind.Year);
+  }
+
+  onFilterContent(event:string){
     if(event=='author'){
-      this.configChange.emit([ContentConfig.SelectAuthor,this.selectAuthor=="None"? "": this.selectAuthor]);
+      this.filteringContent.emit([ContentConfig.SelectAuthor,this.selectAuthor=="None"? "": this.selectAuthor]);
     }
     else if(event=='favorites'){
-      this.configChange.emit([ContentConfig.OnlyFavorites,this.onlyFavorites ? "true" : ""]);
+      this.filteringContent.emit([ContentConfig.OnlyFavorites,this.onlyFavorites ? "true" : ""]);
     }
     else if(event=='search'){
-      this.configChange.emit([ContentConfig.SearchText,this.searchName.trim()])
+      this.filteringContent.emit([ContentConfig.SearchText,this.searchName.trim()])
     }
   }
 }

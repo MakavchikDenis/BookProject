@@ -4,3 +4,9 @@ export enum ContentConfig  {
     SearchText,
     None
 }
+
+export enum SortKind{
+    None,
+    Name,
+    Year
+}

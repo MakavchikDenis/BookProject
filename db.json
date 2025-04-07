@@ -115,14 +115,30 @@
       "publishYear": 2014,
       "imgSrc": "/assets/imgs/6.png",
       "genreKey": "3"
+    },
+    {
+      "id": "7",
+      "name": "PHP",
+      "author": "M. Zandstra ",
+      "publishYear": 2015,
+      "imgSrc": "/assets/imgs/7.png",
+      "genreKey": "3"
+    },
+    {
+      "id": "8",
+      "name": "SQL",
+      "author": "U. Shields",
+      "publishYear": 2019,
+      "imgSrc": "/assets/imgs/8.png",
+      "genreKey": "3"
     }
   ],
   "preferBook": [
     {
       "id": "1",
       "books": [
-        "2",
-        "1"
+        "7",
+        "2"
       ],
       "userId": "1"
     },
