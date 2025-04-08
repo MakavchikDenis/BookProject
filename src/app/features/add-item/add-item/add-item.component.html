@@ -1,1 +1,35 @@
-<p>add-item works!</p>
+<div class="container">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header>
+            <mat-card-title>Edit book</mat-card-title>
+            <mat-card-subtitle>Please fill in the field!</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="this.myForm" (ngSubmit)="onAdd()">
+                <div *ngFor="let i of ">
+                    <div *ngIf="i!='Genre';else select">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{i}}</mat-label>
+                            <input matInput name="{{i}}" formControlName={{i}} placeholder="Enter your {{i}}" (blur)="setError(i)">
+                            <mat-error *ngIf="this.myForm.controls[i].invalid">{{i!="Publication Year" ? this.anotherError : this.publicYearError}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <ng-template #select>
+                        <mat-form-field>
+                            <mat-label>Genre</mat-label>
+                            <mat-select formControlName="Genre">
+                                @for (item of this.genres; track item) {
+                                <mat-option [value]="item.id">{{item.name}}</mat-option>
+                                }
+                            </mat-select>
+                            <mat-error *ngIf="this.myForm.controls[i].invalid">{{this.anotherError}}</mat-error>
+                        </mat-form-field>
+                    </ng-template>
+                </div>
+                <mat-card-actions>
+                    <access-app-button [buttonValue]="'Add'" [disabled]="this.myForm.invalid"></access-app-button>
+                </mat-card-actions>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

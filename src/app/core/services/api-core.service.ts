@@ -36,7 +36,7 @@ export class ApiCoreService {
   };
 
   //удаляем сущность
-  deleteData(requestUrl:string, id:number):Observable<any>{
+  deleteData(requestUrl:string, id:string):Observable<any>{
     return this.http.delete(requestUrl+'/'+id);
   };
 }

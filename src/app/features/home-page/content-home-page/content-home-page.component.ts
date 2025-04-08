@@ -9,6 +9,7 @@ import { AppSignalService } from '../../../core/services/app-signal.service';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { BookItemComponent } from '../../../shared/components/book-item/book-item.component';
 import { Router } from '@angular/router';
+import { EditItemComponent } from '../../edit-item/edit-item/edit-item.component';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class ContentHomePageComponent implements OnInit {
 
   //инициализация сигналов из сервиса 
   ngOnInit(): void {
-    this.handlerService.BaseRequest(ApiUrls.preferBook, ApiUrls.bookStorage, this.books, this.authors);
+    this.handlerService.BaseRequest(this.books, this.authors);
   }
 
 
@@ -41,12 +42,10 @@ export class ContentHomePageComponent implements OnInit {
     //запрос по автору либо по названию (searchfield content)
     // если config[1] = "" (default)=> выводим все книги
     if (config[1] == "") {
-      this.handlerService.BaseRequest(ApiUrls.preferBook, ApiUrls.bookStorage, this.books, this.authors);
+      this.handlerService.BaseRequest(this.books, this.authors);
     }
     else if (config[0] != ContentConfig.OnlyFavorites) {
       this.handlerService.RequestWithParamExtension(
-        ApiUrls.preferBook,
-        ApiUrls.bookStorage,
         config[0] == ContentConfig.SelectAuthor ? ["author", config[1]] : ["name", config[1]],
         this.books,
         "1"
@@ -54,36 +53,38 @@ export class ContentHomePageComponent implements OnInit {
     }
     //запрос на пользовательские книги
     else if (config[0] == ContentConfig.OnlyFavorites) {
-      this.handlerService.UserPreferencesRequest(
-        ApiUrls.preferBook,
-        ApiUrls.bookStorage,
-        this.books,
-        "1"
-      )
+      this.handlerService.UserPreferencesRequest(this.books,"1")
     }
     else {
-      this.handlerService.BaseRequest(ApiUrls.preferBook, ApiUrls.bookStorage, this.books, this.authors);
+      this.handlerService.BaseRequest(this.books, this.authors);
     }
   }
 
   //удаление и добавление пользовательских книг 
   onChangeStatusBook(event: [boolean, string]) {
-    this.handlerService.UpdatePreferencesRequest(ApiUrls.preferBook, "1", event[0], event[1], this.books, this.authors);
+    this.handlerService.UpdatePreferencesRequest("1", event[0], event[1], this.books, this.authors);
   }
 
   //реализация сортировок 
   onSorting(event: SortKind) {
     if (SortKind.None) {
-      this.handlerService.BaseRequest(ApiUrls.preferBook, ApiUrls.bookStorage, this.books, this.authors);
+      this.handlerService.BaseRequest( this.books, this.authors);
       return;
     }
-    this.handlerService.RequestWithParamExtension(ApiUrls.preferBook, ApiUrls.bookStorage,
-      ["_sort", event == SortKind.Name ? "name" : "publishYear"], this.books);
+    this.handlerService.RequestWithParamExtension(["_sort", event == SortKind.Name ? "name" : "publishYear"], this.books);
   }
 
-  //редирект на страницу edit
-  editItem(event:string){
-    this.router.navigate(["edit", event]);
+  //редактирование и удаление сущностей
+  bookOperation(event:[boolean,string]){
+    // редактирование
+    if(event[0]==true){
+      this.router.navigate([this.router.config.find(x=>x.component==EditItemComponent)?.path?.replace(":id",""),event[1]]);
+    }
+    else {
+      if(confirm("Are you sure?")){
+        
+      }
+    }
   }
 }
 

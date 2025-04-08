@@ -21,8 +21,8 @@ export class Service {
         this.appSignalService = signalService;
     }
 
-    private SimpleRequest(urlMainStorage: string, referenceSigBooks: any, referenceSigAuthor: any) {
-        this.httpServise.getAllData(urlMainStorage).
+    private SimpleRequest(referenceSigBooks: any, referenceSigAuthor: any) {
+        this.httpServise.getAllData(ApiUrls.bookStorage).
             pipe(map(x => x)).subscribe({
                 next: (x) => {
                     referenceSigBooks.set(x);
@@ -54,16 +54,16 @@ export class Service {
     }
 
 
-    BaseRequest(urlPreferSource: string, urlMainStorage: string, referenceSigBooks: any, referenceSigAuthor: any, userId?: string) {
+    BaseRequest(referenceSigBooks: any, referenceSigAuthor: any, userId?: string) {
         if (userId != undefined) {
             let params = new HttpParams().set("userId", userId);
-            this.httpServise.getByCondition(urlPreferSource, params)
+            this.httpServise.getByCondition(ApiUrls.preferBook, params)
                 .pipe(map(x => {
                     //console.log(x[0].books);
                     return x[0].books
                 }),
                     switchMap(result => {
-                        return this.httpServise.getAllData(urlMainStorage)
+                        return this.httpServise.getAllData(ApiUrls.bookStorage)
                             .pipe(map((x: Book[]) => x.map(z => { result.includes(z.id) ? z.prefer = true : false; return z })))
                     }))
                 .subscribe({
@@ -80,22 +80,22 @@ export class Service {
                 });
         }
         else {
-            this.SimpleRequest(urlMainStorage, referenceSigBooks, referenceSigAuthor);
+            this.SimpleRequest(referenceSigBooks, referenceSigAuthor);
         }
     }
 
 
 
-    RequestWithParamExtension(urlPreferSource: string, urlStorage: string, param: [string, string], referenceSigBooks: any, userId?: string) {
+    RequestWithParamExtension(param: [string, string], referenceSigBooks: any, userId?: string) {
         if (userId != undefined) {
             let params = new HttpParams().set("userId", userId);
-            this.httpServise.getByCondition(urlPreferSource, params)
+            this.httpServise.getByCondition(ApiUrls.preferBook, params)
                 .pipe(map(x => {
                     //console.log(x[0].books);
                     return x[0].books
                 }),
                     switchMap(result => {
-                        return this.httpServise.getByCondition(urlStorage, new HttpParams().set(param[0], param[1]))
+                        return this.httpServise.getByCondition(ApiUrls.bookStorage, new HttpParams().set(param[0], param[1]))
                             .pipe(map((x: Book[]) => x.map(z => { result.includes(z.id) ? z.prefer = true : false; return z })))
                     }))
                 .subscribe({
@@ -110,19 +110,19 @@ export class Service {
                 });
         }
         else {
-            this.RequestWithParam(urlStorage, param, referenceSigBooks);
+            this.RequestWithParam(ApiUrls.bookStorage, param, referenceSigBooks);
         }
     }
 
-    UserPreferencesRequest(urlPreferSource: string, urlMainStorage: string, referenceSigBooks: any, userId: string) {
+    UserPreferencesRequest(referenceSigBooks: any, userId: string) {
         let params = new HttpParams().set("userId", userId);
-        this.httpServise.getByCondition(urlPreferSource, params)
+        this.httpServise.getByCondition(ApiUrls.preferBook, params)
             .pipe(map(x => {
                 //console.log(x[0].books);
                 return x[0].books
             }),
                 switchMap(result => {
-                    return this.httpServise.getAllData(urlMainStorage)
+                    return this.httpServise.getAllData(ApiUrls.bookStorage)
                         .pipe(map((x: Book[]) => x.filter(z => result.includes(z.id))),
                             map((x: Book[]) => x.map(z => { z.prefer = true; return z })))
                 }))
@@ -138,9 +138,9 @@ export class Service {
             });
     }
 
-    UpdatePreferencesRequest(urlPreferSource: string, userId: string, activity: boolean, bookId: string, referenceSigBooks: any, referenceSigAuthor: any,) {
+    UpdatePreferencesRequest(userId: string, activity: boolean, bookId: string, referenceSigBooks: any, referenceSigAuthor: any) {
         let params = new HttpParams().set("userId", userId);
-        this.httpServise.getByCondition(urlPreferSource, params).
+        this.httpServise.getByCondition(ApiUrls.preferBook, params).
             pipe(map(x => (x[0] as Preference)),
                 switchMap(res => {
                     if (activity == true) {
@@ -150,12 +150,12 @@ export class Service {
                         let array = res.books.filter(x => x != bookId);
                         res.books = array;
                     }
-                    return this.httpServise.editData(urlPreferSource + "/" + userId, JSON.stringify(res));
+                    return this.httpServise.editData(ApiUrls.preferBook + "/" + userId, JSON.stringify(res));
                 })).
             subscribe({
                 next: (x) => {
                     console.log(x);
-                    this.BaseRequest(urlPreferSource, ApiUrls.bookStorage, referenceSigBooks, referenceSigAuthor, userId);
+                    this.BaseRequest(referenceSigBooks, referenceSigAuthor, userId);
                 },
                 error: (err) => {
                     console.log(err);
@@ -163,4 +163,18 @@ export class Service {
                 }
             })
     }
+
+    DeleteItemRequest(bookId: string, referenceSigBooks: any, referenceSigAuthor:any,userId: string,){
+        this.httpServise.deleteData(ApiUrls.bookStorage, bookId)
+        .subscribe({
+            next:()=>{
+                this.BaseRequest(referenceSigBooks,referenceSigAuthor,userId);
+            },  
+            error: (err) => {
+                console.log(err);
+                this.appSignalService?.snackBar.set([MessageKind.Error])
+            }  
+        })
+    }
+
 }

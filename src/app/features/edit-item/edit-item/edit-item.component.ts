@@ -21,15 +21,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { BookItemComponent } from '../../../shared/components/book-item/book-item.component';
 import { MessageValidDictionery } from '../../../shared/other/messag-valid-dictionery';
+import { ContentHomePageComponent } from '../../home-page/content-home-page/content-home-page.component';
 
 @Component({
   selector: 'app-edit-item',
   imports: [ReactiveFormsModule, AccessAppButtonComponent, NgFor, MatFormFieldModule, MatInputModule, MatIconModule, NgIf,
-    MatCardModule, MatChipsModule, MatProgressBarModule, MatCardModule, MatSelectModule, FormsModule, MatGridListModule, BookItemComponent],
+    MatCardModule, MatChipsModule, MatProgressBarModule, MatCardModule, MatSelectModule, FormsModule, MatGridListModule],
   templateUrl: './edit-item.component.html',
   styleUrl: './edit-item.component.scss'
 })
-export class EditItemComponent {
+export class EditItemComponent implements OnInit {
   myForm: FormGroup = inject(GetFormBookService).getFormField();
   readonly apiService = inject(ApiCoreService);
   readonly router = inject(Router);
@@ -45,16 +46,12 @@ export class EditItemComponent {
 
   constructor(private route: ActivatedRoute) {
     route.params.subscribe(param => this.routeParam = param["id"]);
+  }
+
+  ngOnInit(): void {
     this.getItem(this.routeParam);
     this.getGenres();
   }
-
-  // ngOnInit(): void {
-  //   this.getItem(this.routeParam);
-  //   this.getGenres();
-  //   this.initItem();
-
-  // }
 
   private initItem(item: Book) {
     this.myForm.controls["Title"].setValue(item.name ?? "");
@@ -127,7 +124,7 @@ export class EditItemComponent {
         next: (result) => {
           console.log(result);
           this.appSignalService.snackBar.set([MessageKind.Success]);
-          this.router.navigate(["home"]);
+          this.router.navigate([this.router.config.find(x=>x.component==ContentHomePageComponent)?.path]);
         },
         error: (error) => {
           console.log(error);

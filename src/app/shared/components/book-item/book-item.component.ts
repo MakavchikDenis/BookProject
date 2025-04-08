@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 
 
 @Component({
@@ -19,7 +18,9 @@ export class BookItemComponent {
    @Input() img: string = "";
    @Input() prefer: boolean | undefined;
    @Output() eventToParent = new EventEmitter<[boolean, string]>();
-   @Output() eventToEdit = new EventEmitter<string>();
+   @Output() bookOperation = new EventEmitter<[boolean,string]>();
+
+
 
    addToFavorite() {
       this.eventToParent.emit([true, this.id]);
@@ -29,7 +30,7 @@ export class BookItemComponent {
       this.eventToParent.emit([false, this.id]);
    }
 
-   redirectTo() {
-      this.eventToEdit.emit(this.id);
+   itemOperation(operationKind:boolean) {
+      this.bookOperation.emit([operationKind,this.id]);
    }
 }

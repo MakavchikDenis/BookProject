@@ -76,11 +76,11 @@
   "bookStorage": [
     {
       "id": "1",
-      "name": "Python",
+      "name": "PythonEdit",
       "author": "S. Semenova",
-      "publishYear": "2020",
+      "publishYear": "2024",
       "imgSrc": "/assets/imgs/1.png",
-      "genreKey": "2"
+      "genreKey": "1"
     },
     {
       "id": "2",
@@ -96,7 +96,7 @@
       "author": "R. Lavore",
       "publishYear": "2021",
       "imgSrc": "/assets/imgs/3.png",
-      "genreKey": "4"
+      "genreKey": "1"
     },
     {
       "id": "4",

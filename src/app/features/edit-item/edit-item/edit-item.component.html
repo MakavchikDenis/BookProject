@@ -22,11 +22,12 @@
                                 <mat-option [value]="item.id">{{item.name}}</mat-option>
                                 }
                             </mat-select>
+                            <mat-error *ngIf="this.myForm.controls[i].invalid">{{this.anotherError}}</mat-error>
                         </mat-form-field>
                     </ng-template>
                 </div>
                 <mat-card-actions>
-                    <access-app-button [buttonValue]="'Done'" [disabled]="this.myForm.invalid">{{this.anotherError}}</access-app-button>
+                    <access-app-button [buttonValue]="'Done'" [disabled]="this.myForm.invalid"></access-app-button>
                 </mat-card-actions>
             </form>
         </mat-card-content>
