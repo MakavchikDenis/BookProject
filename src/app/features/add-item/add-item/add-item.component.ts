@@ -38,15 +38,15 @@ export class AddItemComponent implements OnInit, OnDestroy {
   readonly apiService = inject(ApiCoreService);
   readonly router = inject(Router);
   readonly appSignalService: AppSignalService = inject(AppSignalService);
-  subscription?: Subscription;
   genres: Genre[] = [];
+  subscriptions: Subscription[] = [];
 
   publicYearError = "";
   anotherError = "";
 
 
   private getGenres() {
-    this.apiService.getAllData(ApiUrls.genres).subscribe({
+    this.subscriptions.push(this.apiService.getAllData(ApiUrls.genres).subscribe({
       next: (x => {
         console.log(x);
         this.genres = x;
@@ -55,7 +55,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
         console.log(err);
         this.appSignalService?.snackBar.set([MessageKind.Error])
       }
-    })
+    }));
   }
 
   ngOnInit(): void {
@@ -94,8 +94,8 @@ export class AddItemComponent implements OnInit, OnDestroy {
       imgSrc: ""
     }
 
-    this.apiService.addData(ApiUrls.bookStorage, JSON.stringify(item)).pipe(map(x => x)).
-      subscribe({
+    this.subscriptions.push(this.apiService.addData(ApiUrls.bookStorage, JSON.stringify(item))
+      .subscribe({
         next: (x) => {
           console.log(x);
           this.appSignalService.snackBar.set([MessageKind.Success]);
@@ -105,10 +105,10 @@ export class AddItemComponent implements OnInit, OnDestroy {
           console.log(err);
           this.appSignalService.snackBar.set([MessageKind.Error])
         }
-      })
+      }));
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.subscriptions.forEach(x => x.unsubscribe());
   }
 }

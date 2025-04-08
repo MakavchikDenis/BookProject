@@ -53,7 +53,7 @@ export class ContentHomePageComponent implements OnInit {
     }
     //запрос на пользовательские книги
     else if (config[0] == ContentConfig.OnlyFavorites) {
-      this.handlerService.UserPreferencesRequest(this.books,"1")
+      this.handlerService.UserPreferencesRequest(this.books, "1")
     }
     else {
       this.handlerService.BaseRequest(this.books, this.authors);
@@ -68,21 +68,21 @@ export class ContentHomePageComponent implements OnInit {
   //реализация сортировок 
   onSorting(event: SortKind) {
     if (SortKind.None) {
-      this.handlerService.BaseRequest( this.books, this.authors);
+      this.handlerService.BaseRequest(this.books, this.authors);
       return;
     }
     this.handlerService.RequestWithParamExtension(["_sort", event == SortKind.Name ? "name" : "publishYear"], this.books);
   }
 
   //редактирование и удаление сущностей
-  bookOperation(event:[boolean,string]){
+  bookOperation(event: [boolean, string]) {
     // редактирование
-    if(event[0]==true){
-      this.router.navigate([this.router.config.find(x=>x.component==EditItemComponent)?.path?.replace(":id",""),event[1]]);
+    if (event[0] == true) {
+      this.router.navigate([this.router.config.find(x => x.component == EditItemComponent)?.path?.replace(":id", ""), event[1]]);
     }
     else {
-      if(confirm("Are you sure?")){
-        
+      if (confirm("Are you sure?")) {
+        this.handlerService.DeleteItemRequest(event[1], this.books, this.authors, "1");
       }
     }
   }

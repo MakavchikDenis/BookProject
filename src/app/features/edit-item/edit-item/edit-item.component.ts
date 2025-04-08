@@ -1,10 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { GetFormBookService } from '../../../core/services/get-form-book.service';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApiCoreService } from '../../../core/services/api-core.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiUrls } from '../../../shared/other/api-url';
-import { map } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { AppSignalService } from '../../../core/services/app-signal.service';
 import { MessageKind } from '../../../shared/other/messag-snack-bar';
 import { Book } from '../../../shared/models/book';
@@ -30,15 +30,15 @@ import { ContentHomePageComponent } from '../../home-page/content-home-page/cont
   templateUrl: './edit-item.component.html',
   styleUrl: './edit-item.component.scss'
 })
-export class EditItemComponent implements OnInit {
+export class EditItemComponent implements OnInit, OnDestroy {
   myForm: FormGroup = inject(GetFormBookService).getFormField();
   readonly apiService = inject(ApiCoreService);
   readonly router = inject(Router);
   readonly appSignalService: AppSignalService = inject(AppSignalService)
   routeParam: string = "";
   genres: Genre[] = [];
-  //genresList: string[] = [];
   book: Book = { id: "", name: "", publishYear: "", genreKey: "", imgSrc: "", author: "" }
+  subscriptions: Subscription[] = [];
 
   publicYearError = "";
   anotherError = "";
@@ -47,6 +47,7 @@ export class EditItemComponent implements OnInit {
   constructor(private route: ActivatedRoute) {
     route.params.subscribe(param => this.routeParam = param["id"]);
   }
+
 
   ngOnInit(): void {
     this.getItem(this.routeParam);
@@ -62,7 +63,7 @@ export class EditItemComponent implements OnInit {
 
 
   private getItem(bookId: string) {
-    this.apiService.getAllData(ApiUrls.bookStorage + "/" + this.routeParam).pipe(map(x => x)).subscribe({
+    this.subscriptions.push(this.apiService.getAllData(ApiUrls.bookStorage + "/" + this.routeParam).subscribe({
       next: (x => {
         console.log(x);
         this.book = x;
@@ -72,11 +73,11 @@ export class EditItemComponent implements OnInit {
         console.log(err);
         this.appSignalService?.snackBar.set([MessageKind.Error])
       }
-    })
+    }));
   }
 
   private getGenres() {
-    this.apiService.getAllData(ApiUrls.genres).pipe(map((x => x))).subscribe({
+    this.subscriptions.push(this.apiService.getAllData(ApiUrls.genres).subscribe({
       next: (x => {
         console.log(x);
         this.genres = x;
@@ -86,7 +87,7 @@ export class EditItemComponent implements OnInit {
         console.log(err);
         this.appSignalService?.snackBar.set([MessageKind.Error])
       }
-    })
+    }));
   }
 
   //массив полей
@@ -119,17 +120,21 @@ export class EditItemComponent implements OnInit {
     this.book.publishYear = this.myForm.controls["Publication Year"].value;
     this.book.genreKey = this.myForm.controls["Genre"].value;
 
-    this.apiService.editData(ApiUrls.bookStorage + "/" + this.book.id, JSON.stringify(this.book)).pipe(x => x)
+  this.subscriptions.push(this.apiService.editData(ApiUrls.bookStorage + "/" + this.book.id, JSON.stringify(this.book))
       .subscribe({
         next: (result) => {
           console.log(result);
           this.appSignalService.snackBar.set([MessageKind.Success]);
-          this.router.navigate([this.router.config.find(x=>x.component==ContentHomePageComponent)?.path]);
+          this.router.navigate([this.router.config.find(x => x.component == ContentHomePageComponent)?.path]);
         },
         error: (error) => {
           console.log(error);
           this.appSignalService.snackBar.set([MessageKind.Error])
         }
-      });
+      }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(x=>x.unsubscribe);
   }
 }
