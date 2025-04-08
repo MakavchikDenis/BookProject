@@ -12,15 +12,14 @@ export class SnackBarComponent {
   
   readonly snackService = inject(MatSnackBar);
   
-  timePerform =2;
+  timePerform =3;
 
   openSnackBar(processStatus:MessageKind, content?:string){
     let extraStyle;
-
-    if(MessageKind.Success){
+    if(processStatus== MessageKind.Success){
       extraStyle = "extraSnackBarSuccess"
     }
-    else if(MessageKind.Error){
+    else if(processStatus== MessageKind.Error){
       extraStyle = "extraSnackBarError"
     }
     else {

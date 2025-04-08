@@ -12,8 +12,8 @@ export const enum MessageKind{
 };
 
 export const ContentMessages:ContentMessage[]=[
-    {key:MessageKind.Success, val: "Success"},
-    {key:MessageKind.Error, val: "Occured error"}
+    {key:MessageKind.Success, val: "The operation executed successfully."},
+    {key:MessageKind.Error, val: "Occured error."}
 
 ]
 

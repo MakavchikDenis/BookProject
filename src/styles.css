@@ -6,7 +6,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* глобальные стили для snackBar    */
  .extraSnackBarSuccess simple-snack-bar {
-    background-color: #98FB98 !important;
+    background-color: #228B22 !important;
     border-radius: 5px;
     text-align:center;
 }

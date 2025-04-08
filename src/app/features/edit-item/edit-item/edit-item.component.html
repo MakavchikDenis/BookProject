@@ -10,24 +10,23 @@
                     <div *ngIf="i!='Genre';else select">
                         <mat-form-field appearance="fill">
                             <mat-label>{{i}}</mat-label>
-                            <input matInput name="{{i}}" formControlName={{i}} placeholder="Enter your {{i}}">
-                            <mat-error *ngIf="this.myForm.controls[i].invalid && this.myForm.controls[i].touched">You
-                                must enter a value - </mat-error>
+                            <input matInput name="{{i}}" formControlName={{i}} placeholder="Enter your {{i}}" (blur)="setError(i)">
+                            <mat-error *ngIf="this.myForm.controls[i].invalid">{{i!="Publication Year" ? this.anotherError : this.publicYearError}}</mat-error>
                         </mat-form-field>
                     </div>
                     <ng-template #select>
                         <mat-form-field>
                             <mat-label>Genre</mat-label>
                             <mat-select formControlName="Genre">
-                                @for (item of this.genresList; track item) {
-                                <mat-option [value]="item">{{item}}</mat-option>
+                                @for (item of this.genres; track item) {
+                                <mat-option [value]="item.id">{{item.name}}</mat-option>
                                 }
                             </mat-select>
                         </mat-form-field>
                     </ng-template>
                 </div>
                 <mat-card-actions>
-                    <access-app-button [buttonValue]="'Done'" [disabled]="this.myForm.invalid"></access-app-button>
+                    <access-app-button [buttonValue]="'Done'" [disabled]="this.myForm.invalid">{{this.anotherError}}</access-app-button>
                 </mat-card-actions>
             </form>
         </mat-card-content>

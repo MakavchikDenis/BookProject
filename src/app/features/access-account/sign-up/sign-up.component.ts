@@ -66,7 +66,7 @@ export class SignUpComponent implements  OnDestroy  {
             this.emailError = MessageValidDictionery.getMessage("required",event);
           }
           else if(this.mainForm.controls[event].hasError("email")){
-            this.emailError = MessageValidDictionery.getMessage("email",event);
+            this.emailError = MessageValidDictionery.getMessage("format",event);
           }
         }  
       }

@@ -47,6 +47,12 @@
       "login": "Peter",
       "password": "123",
       "email": "mak1@gmail.com"
+    },
+    {
+      "id": "1edc",
+      "login": "New",
+      "password": "123",
+      "email": "maka@gmail.com"
     }
   ],
   "genres": [
@@ -71,16 +77,16 @@
     {
       "id": "1",
       "name": "Python",
-      "author": "S. Semenov",
-      "publishYear": 2018,
+      "author": "S. Semenova",
+      "publishYear": "2020",
       "imgSrc": "/assets/imgs/1.png",
-      "genreKey": "1"
+      "genreKey": "2"
     },
     {
       "id": "2",
       "name": "Type Script",
       "author": "B. Cherny ",
-      "publishYear": 2019,
+      "publishYear": "2021",
       "imgSrc": "/assets/imgs/2.png",
       "genreKey": "2"
     },
@@ -88,9 +94,9 @@
       "id": "3",
       "name": "Java",
       "author": "R. Lavore",
-      "publishYear": 2020,
+      "publishYear": "2021",
       "imgSrc": "/assets/imgs/3.png",
-      "genreKey": "3"
+      "genreKey": "4"
     },
     {
       "id": "4",
@@ -137,8 +143,7 @@
     {
       "id": "1",
       "books": [
-        "7",
-        "2"
+        "4"
       ],
       "userId": "1"
     },

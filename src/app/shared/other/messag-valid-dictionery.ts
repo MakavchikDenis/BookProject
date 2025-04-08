@@ -6,7 +6,7 @@ interface IDictionery<T>{
 
 const list:IDictionery<string>[]=[
     {key:"required",val:"You must enter a value - "},
-    {key:"email", val:"Not a valid - "}
+    {key:"format", val:"Not a valid - "}
 ]
 
 export const MessageValidDictionery = {

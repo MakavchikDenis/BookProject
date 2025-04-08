@@ -13,9 +13,6 @@ const childAccessRoutes:Routes=[
     {path:"reg", component:SignUpComponent}
 ]
 
-// const childHomeRoutes:Routes=[
-//     {path:"edit/:id", component:EditItemComponent}
-// ]
 
 const generalRoutes:Routes = [
     {path:"", component:AccessAccountComponent, children:childAccessRoutes},

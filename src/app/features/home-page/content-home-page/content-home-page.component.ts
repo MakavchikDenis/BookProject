@@ -6,9 +6,7 @@ import { Service } from '../service';
 import { ApiUrls } from '../../../shared/other/api-url';
 import { Book } from '../../../shared/models/book';
 import { AppSignalService } from '../../../core/services/app-signal.service';
-import { Preference } from '../../../shared/models/preference';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { NgFor } from '@angular/common';
 import { BookItemComponent } from '../../../shared/components/book-item/book-item.component';
 import { Router } from '@angular/router';
 
@@ -84,7 +82,7 @@ export class ContentHomePageComponent implements OnInit {
   }
 
   //редирект на страницу edit
-  redirect(event:string){
+  editItem(event:string){
     this.router.navigate(["edit", event]);
   }
 }

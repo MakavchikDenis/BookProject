@@ -15,7 +15,7 @@ export class GetFormBookService {
       "Title": ["", [Validators.required, Validators.min(3)]],
       "Author": ["", [Validators.required]],
       "Genre": ["", [Validators.required]],
-      "Publication Year": ["", [Validators.required]]
+      "Publication Year": ["", [Validators.pattern("[0-9]{4}"), Validators.min(1945), Validators.max(new Date().getFullYear())]]
     })
   }
 }
