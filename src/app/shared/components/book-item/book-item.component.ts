@@ -1,8 +1,9 @@
 import { NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { UserStateService } from '../../../core/services/user-state.service';
 
 
 @Component({
@@ -19,8 +20,9 @@ export class BookItemComponent {
    @Input() prefer: boolean | undefined;
    @Output() eventToParent = new EventEmitter<[boolean, string]>();
    @Output() bookOperation = new EventEmitter<[boolean,string]>();
+   userState = inject(UserStateService).isLoggedIn();
 
-
+   constructor(){}
 
    addToFavorite() {
       this.eventToParent.emit([true, this.id]);

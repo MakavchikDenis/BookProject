@@ -12,13 +12,6 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, SnackBarComponent, FooterComponent, HeaderComponent],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
-  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

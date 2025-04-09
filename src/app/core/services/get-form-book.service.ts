@@ -2,9 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class GetFormBookService {
 
   readonly formBuilder = inject(FormBuilder);

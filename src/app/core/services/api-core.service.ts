@@ -26,17 +26,17 @@ export class ApiCoreService {
   }
 
   //возвращаем сущности по условию (Post)
-  getByConditionPost(requestUrl:string,body:any):Observable<any>{
+  accessRequest(requestUrl:string,body:any):Observable<any>{
     return this.http.post(requestUrl,body);
   }
 
   //добавляем сущность
-  addData(requestUri:string, body:string):Observable<any>{
+  addData(requestUri:string, body:any):Observable<any>{
    return this.http.post(requestUri,body)
   };
 
   // обновляем сущность
-  editData(requestUrl:string,body:string):Observable<any>{
+  editData(requestUrl:string,body:any):Observable<any>{
     return this.http.put(requestUrl,body)
   };
 

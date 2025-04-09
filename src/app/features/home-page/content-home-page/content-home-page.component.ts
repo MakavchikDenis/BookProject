@@ -10,9 +10,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { BookItemComponent } from '../../../shared/components/book-item/book-item.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditItemComponent } from '../../edit-item/edit-item/edit-item.component';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpRequest } from '@angular/common/http';
 import { User } from '../../../shared/models/user';
-import { WrapperRequestService } from '../../../core/services/wrapper-request.service';
+import { AuthInterceptor } from '../../../core/interceptors/auth.interceptor';
+import { UserStateService } from '../../../core/services/user-state.service';
+
 
 
 @Component({
@@ -26,27 +28,18 @@ export class ContentHomePageComponent implements OnInit {
   readonly httpService: ApiCoreService = inject(ApiCoreService);
   readonly appSignalService = inject(AppSignalService);
   readonly router = inject(Router);
+  readonly userStateService = inject(UserStateService);
   handlerService: Service = new Service(this.httpService, this.appSignalService);
   books = signal<Book[]>([]);
   authors = signal<string[]>([]);
-  userData?:User;
+  userLogIn: [boolean, string | undefined] = [this.userStateService.isLoggedIn(), this.userStateService.userId()];
 
-
-  constructor (readonly request:WrapperRequestService ){
-    console.log(this.request.httpRequest?.headers.get("userId"));
-    if(this.request.httpRequest?.headers.has("userId")){
-      this.userData={
-        id:this.request.httpRequest?.headers.get("userId") ?? "",
-        login:"",
-        password:"",
-        email:""
-      };
-    }
-  }  
+  constructor() {
+  }
 
   //инициализация сигналов из сервиса 
   ngOnInit(): void {
-    this.handlerService.BaseRequest(this.books, this.authors);
+    this.handlerService.BaseRequest(this.books, this.authors, this.userLogIn[1]);
   }
 
   //реализация фильтров на сервер через конфиг

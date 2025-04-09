@@ -2,7 +2,7 @@
     <app-config-content  [authors]="this.authors()"  (filteringContent)="onChangeContent($event)" (sortingContent)="onSorting($event)"></app-config-content>
     <mat-grid-list cols="4" rowHeight="1:1">
         @for (item of this.books(); track item) {
-            <mat-grid-tile><app-book-item [id]="item.id??''" [name]="item.name" [author]="item.author" [img]="item.imgSrc??''" 
+            <mat-grid-tile><app-book-item  [id]="item.id??''" [name]="item.name" [author]="item.author" [img]="item.imgSrc??''" 
                 [prefer]="item.prefer"  (bookOperation)="bookOperation($event)" (eventToParent)="onChangeStatusBook($event)"></app-book-item></mat-grid-tile>
         }
       </mat-grid-list>      

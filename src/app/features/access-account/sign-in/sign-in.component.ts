@@ -17,7 +17,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { HttpParams, HttpResponse } from '@angular/common/http';
 import { ApiUrls } from '../../../shared/other/api-url';
 import { MessageKind } from '../../../shared/other/messag-snack-bar';
 import { ContentHomePageComponent } from '../../home-page/content-home-page/content-home-page.component';
@@ -81,7 +80,7 @@ export class SignInComponent implements OnDestroy {
   submit() {
     //let params = new HttpParams().set("email", this.mainForm.controls["Email"].value).set("password", this.mainForm.controls["Password"].value);
     let user = {email:this.mainForm.controls["Email"].value, password:this.mainForm.controls["Password"].value};
-    this.subscription = this.httpService.getByConditionPost(ApiUrls.login, user).subscribe({
+    this.subscription = this.httpService.accessRequest(ApiUrls.login, user).subscribe({
       next: (data: any) => {
         console.log(data);
         let response = (data as LogIn);
@@ -89,9 +88,7 @@ export class SignInComponent implements OnDestroy {
           console.log(response.accessToken);
           let userData = (response as LogIn);
           localStorage.setItem("token", userData.accessToken);
-          let path = this.routService.config.find(x => x.component == ContentHomePageComponent)?.path;
-          console.log(path);
-          this.routService.navigate(["home"]);
+          this.routService.navigate([this.routService.config.find(x => x.component == ContentHomePageComponent)?.path]);
         }
         else {
           this.appSignalService.snackBar.set([MessageKind.Notice, "The user cannot be found in the system!"]);

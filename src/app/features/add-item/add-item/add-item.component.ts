@@ -30,6 +30,7 @@ import { MessageValidDictionery } from '../../../shared/other/messag-valid-dicti
   selector: 'app-add-item',
   imports: [ReactiveFormsModule, AccessAppButtonComponent, NgFor, MatFormFieldModule, MatInputModule, MatIconModule, NgIf,
     MatCardModule, MatChipsModule, MatProgressBarModule, MatCardModule, MatSelectModule, FormsModule, MatGridListModule],
+  providers:[GetFormBookService],
   templateUrl: './add-item.component.html',
   styleUrl: './add-item.component.scss'
 })
@@ -94,7 +95,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
       imgSrc: ""
     }
 
-    this.subscriptions.push(this.apiService.addData(ApiUrls.bookStorage, JSON.stringify(item))
+    this.subscriptions.push(this.apiService.addData(ApiUrls.bookStorage, item)
       .subscribe({
         next: (x) => {
           console.log(x);

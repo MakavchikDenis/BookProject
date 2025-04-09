@@ -59,7 +59,7 @@ export class Service {
             let params = new HttpParams().set("userId", userId);
             this.httpServise.getByCondition(ApiUrls.preferBook, params)
                 .pipe(map(x => {
-                    //console.log(x[0].books);
+                    console.log(x[0].books);
                     return x[0].books
                 }),
                     switchMap(result => {
@@ -68,7 +68,7 @@ export class Service {
                     }))
                 .subscribe({
                     next: (x: any) => {
-                        //console.log(x);
+                        console.log(x);
                         referenceSigBooks.set(x)
                         let array = (referenceSigBooks() as Book[]).map<string>(x => x.author);
                         referenceSigAuthor.set(array.filter((element, i) => i === array.indexOf(element)));
@@ -91,7 +91,7 @@ export class Service {
             let params = new HttpParams().set("userId", userId);
             this.httpServise.getByCondition(ApiUrls.preferBook, params)
                 .pipe(map(x => {
-                    //console.log(x[0].books);
+                    console.log(x[0].books);
                     return x[0].books
                 }),
                     switchMap(result => {
@@ -100,7 +100,7 @@ export class Service {
                     }))
                 .subscribe({
                     next: (x: any) => {
-                        //console.log(x);
+                        console.log(x);
                         referenceSigBooks.set(x)
                     },
                     error: (err) => {
@@ -150,7 +150,7 @@ export class Service {
                         let array = res.books.filter(x => x != bookId);
                         res.books = array;
                     }
-                    return this.httpServise.editData(ApiUrls.preferBook + "/" + userId, JSON.stringify(res));
+                    return this.httpServise.editData(ApiUrls.preferBook + "/" + userId, res);
                 })).
             subscribe({
                 next: (x) => {

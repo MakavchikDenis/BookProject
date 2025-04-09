@@ -27,6 +27,7 @@ import { ContentHomePageComponent } from '../../home-page/content-home-page/cont
   selector: 'app-edit-item',
   imports: [ReactiveFormsModule, AccessAppButtonComponent, NgFor, MatFormFieldModule, MatInputModule, MatIconModule, NgIf,
     MatCardModule, MatChipsModule, MatProgressBarModule, MatCardModule, MatSelectModule, FormsModule, MatGridListModule],
+  providers:[GetFormBookService],
   templateUrl: './edit-item.component.html',
   styleUrl: './edit-item.component.scss'
 })
@@ -120,7 +121,7 @@ export class EditItemComponent implements OnInit, OnDestroy {
     this.book.publishYear = this.myForm.controls["Publication Year"].value;
     this.book.genreKey = this.myForm.controls["Genre"].value;
 
-  this.subscriptions.push(this.apiService.editData(ApiUrls.bookStorage + "/" + this.book.id, JSON.stringify(this.book))
+  this.subscriptions.push(this.apiService.editData(ApiUrls.bookStorage + "/" + this.book.id, this.book)
       .subscribe({
         next: (result) => {
           console.log(result);

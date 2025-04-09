@@ -21,6 +21,7 @@ import { MessageValidDictionery } from '../../../shared/other/messag-valid-dicti
 import { AppSignalService } from '../../../core/services/app-signal.service';
 import { MessageKind } from '../../../shared/other/messag-snack-bar';
 import { Preference } from '../../../shared/models/preference';
+import { LogIn } from '../../../shared/models/logIn';
 
 
 @Component({
@@ -89,15 +90,15 @@ export class SignUpComponent implements OnDestroy {
 
     //первым запросам сохраняем обьект в таблицу user, 
     // вторым с его полученным  userId создаем новую сущность в таблице preferBook   
-    this.subscription = this.httpService.addData(ApiUrls.users, JSON.stringify(user))
+    this.subscription = this.httpService.addData(ApiUrls.users, user)
       .pipe(
         switchMap(x => {
           console.log(x);
           let preferBook: Preference = {
             books: [],
-            userId: x
+            userId: (x as LogIn).user.id
           };
-          return this.httpService.addData(ApiUrls.preferBook, JSON.stringify(preferBook))
+          return this.httpService.addData(ApiUrls.preferBook, preferBook)
         }))
       .subscribe({
         next: (result) => {
