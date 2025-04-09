@@ -8,8 +8,11 @@ import { Book } from '../../../shared/models/book';
 import { AppSignalService } from '../../../core/services/app-signal.service';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { BookItemComponent } from '../../../shared/components/book-item/book-item.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EditItemComponent } from '../../edit-item/edit-item/edit-item.component';
+import { HttpClient, HttpRequest } from '@angular/common/http';
+import { User } from '../../../shared/models/user';
+import { WrapperRequestService } from '../../../core/services/wrapper-request.service';
 
 
 @Component({
@@ -23,19 +26,28 @@ export class ContentHomePageComponent implements OnInit {
   readonly httpService: ApiCoreService = inject(ApiCoreService);
   readonly appSignalService = inject(AppSignalService);
   readonly router = inject(Router);
-
   handlerService: Service = new Service(this.httpService, this.appSignalService);
   books = signal<Book[]>([]);
   authors = signal<string[]>([]);
+  userData?:User;
 
 
-  //preferencesUser:Preference={id:"", books:[], userId:""}
+  constructor (readonly request:WrapperRequestService ){
+    console.log(this.request.httpRequest?.headers.get("userId"));
+    if(this.request.httpRequest?.headers.has("userId")){
+      this.userData={
+        id:this.request.httpRequest?.headers.get("userId") ?? "",
+        login:"",
+        password:"",
+        email:""
+      };
+    }
+  }  
 
   //инициализация сигналов из сервиса 
   ngOnInit(): void {
     this.handlerService.BaseRequest(this.books, this.authors);
   }
-
 
   //реализация фильтров на сервер через конфиг
   onChangeContent(config: [ContentConfig, string]) {

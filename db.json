@@ -3,8 +3,8 @@
     {
       "id": "1",
       "login": "user1",
-      "password": "",
-      "email": ""
+      "password": "34534",
+      "email": "21313@gmail.com"
     },
     {
       "id": "2",
@@ -53,6 +53,27 @@
       "login": "New",
       "password": "123",
       "email": "maka@gmail.com"
+    },
+    {
+      "id": "8c06",
+      "email": "21313@gmail.com",
+      "password": "34534",
+      "login": "user1"
+    },
+    {
+      "email": "21313222@gmail.com",
+      "password": "$2a$10$XDwLFxYrl1M.ZcmxLMlOJ.mhytG.0LTFzdtflzte0/TTKkTm9nthi",
+      "id": "yx7QJHo"
+    },
+    {
+      "email": "213@gmail.com",
+      "password": "$2a$10$YwzC5gAATyR4XQhJE3B.Se/VejC1tXqW8m4McYw/XtkdEQG/F5nRe",
+      "id": "UcI-TvT"
+    },
+    {
+      "email": "7777777@gmail.com",
+      "password": "$2a$10$DKosBle4.WlYKeiCfFM.MedrSdhhtqPPILAHmMT0A2qu.zAuPMvZq",
+      "id": "a4YQsg4"
     }
   ],
   "genres": [

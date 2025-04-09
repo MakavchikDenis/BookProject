@@ -17,15 +17,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { HttpParams } from '@angular/common/http';
+import { HttpParams, HttpResponse } from '@angular/common/http';
 import { ApiUrls } from '../../../shared/other/api-url';
-import { User } from '../../../shared/models/user';
 import { MessageKind } from '../../../shared/other/messag-snack-bar';
+import { ContentHomePageComponent } from '../../home-page/content-home-page/content-home-page.component';
+import {LogIn,User} from '../../../../app/shared/models/logIn';
 
 
 @Component({
   selector: 'app-authentication',
-  imports: [ReactiveFormsModule,AccessAppButtonComponent,NgFor, AccessAppReferenceComponent,MatFormFieldModule, MatInputModule, MatIconModule, NgIf,
+  imports: [ReactiveFormsModule, AccessAppButtonComponent, NgFor, AccessAppReferenceComponent, MatFormFieldModule, MatInputModule, MatIconModule, NgIf,
     MatCardModule, MatChipsModule, MatProgressBarModule, MatCardModule],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
@@ -35,64 +36,76 @@ export class SignInComponent implements OnDestroy {
   readonly service = inject(GetFormUserService);
   readonly routService = inject(Router);
   readonly httpService = inject(ApiCoreService);
-  readonly appSignalService = inject (AppSignalService);
-  private subscription?:Subscription;
-  userData?:User;
+  readonly appSignalService = inject(AppSignalService);
+  private subscription?: Subscription;
+
 
   //контент для button
-  buttonValue ="Log In";
+  buttonValue = "Log In";
   //контент и урл для link
   extraContentLink = "Need to create an account? ";
   contentLink = "Sign Up";
-  urlLink = "/"+(this.routService.config.find(x=>x.component==AccessAccountComponent)?.children?.find(x=>x.component==SignUpComponent)?.path ?? "");
-  
+  urlLink = "/" + (this.routService.config.find(x => x.component == AccessAccountComponent)?.children?.find(x => x.component == SignUpComponent)?.path ?? "");
+
 
   //свойства для template
-  mainForm:FormGroup = this.service.getFormField(Activity.Authentication);
-  passwordError="";
-  emailError="";
-  hide=true;
+  mainForm: FormGroup = this.service.getFormField(Activity.Authentication);
+  passwordError = "";
+  emailError = "";
+  hide = true;
 
   //устанавливаем значение errorMessage
-    setError(event:string){
-      switch (event) {
-        case "Password":{this.passwordError = this.mainForm.controls[event].hasError("required") ? MessageValidDictionery.getMessage("required",event) : "";break}
-        case "Email":{
-          if(this.mainForm.controls[event].hasError("required")){
-            this.emailError = MessageValidDictionery.getMessage("required",event);
-            }
-          else if(this.mainForm.controls[event].hasError("email")){
-            this.emailError = MessageValidDictionery.getMessage("email",event);
-            }
-          }  
+  setError(event: string) {
+    switch (event) {
+      case "Password": { this.passwordError = this.mainForm.controls[event].hasError("required") ? MessageValidDictionery.getMessage("required", event) : ""; break }
+      case "Email": {
+        if (this.mainForm.controls[event].hasError("required")) {
+          this.emailError = MessageValidDictionery.getMessage("required", event);
+        }
+        else if (this.mainForm.controls[event].hasError("email")) {
+          this.emailError = MessageValidDictionery.getMessage("email", event);
         }
       }
+    }
+  }
 
   //изменяем состояние icon password
-  clickEvent(){this.hide=!this.hide;}
+  clickEvent() { this.hide = !this.hide; }
 
   //массив полей
-  getFormFields(): string[]{
+  getFormFields(): string[] {
     return Object.keys(this.mainForm.controls);
   }
 
   //получаем данные формы, проверяем со значениями из АПИ: success => создаем jwt token, перенаправляем => home.
-  submit(){
-    let params = new HttpParams().set("email",this.mainForm.controls["Email"].value).set("password", this.mainForm.controls["Password"].value);
-
-    this.httpService.getByCondition(ApiUrls.users,params).subscribe({
-      next:(data:any)=>{
-        this.userData={id:data.id,login:data.login, password:data.password,email:data.email}
+  submit() {
+    //let params = new HttpParams().set("email", this.mainForm.controls["Email"].value).set("password", this.mainForm.controls["Password"].value);
+    let user = {email:this.mainForm.controls["Email"].value, password:this.mainForm.controls["Password"].value};
+    this.subscription = this.httpService.getByConditionPost(ApiUrls.login, user).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        let response = (data as LogIn);
+        if (response) {
+          console.log(response.accessToken);
+          let userData = (response as LogIn);
+          localStorage.setItem("token", userData.accessToken);
+          let path = this.routService.config.find(x => x.component == ContentHomePageComponent)?.path;
+          console.log(path);
+          this.routService.navigate(["home"]);
+        }
+        else {
+          this.appSignalService.snackBar.set([MessageKind.Notice, "The user cannot be found in the system!"]);
+        }
       },
-      error:(error)=>{
+      error: (error) => {
         console.log(error);
         this.appSignalService.snackBar.set([MessageKind.Error])
       }
     })
   };
 
-   // отписываемся от Observable
-   ngOnDestroy(): void {
+  // отписываемся от Observable
+  ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
 }

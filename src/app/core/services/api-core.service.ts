@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { User } from '../../shared/models/user';
@@ -20,9 +20,14 @@ export class ApiCoreService {
     return this.http.get<T>(requestUrl+"/"+id);
   }
 
-  //возвращаем сущности по условию
+  //возвращаем сущности по условию (Get)
   getByCondition(requestUrl:string,_params:HttpParams):Observable<any>{
     return this.http.get(requestUrl, {params:_params});
+  }
+
+  //возвращаем сущности по условию (Post)
+  getByConditionPost(requestUrl:string,body:any):Observable<any>{
+    return this.http.post(requestUrl,body);
   }
 
   //добавляем сущность
