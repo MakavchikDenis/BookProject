@@ -8,6 +8,7 @@ import { ContentConfig, SortKind } from '../content-config';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
+import { UserStateService } from '../../../core/services/user-state.service';
 ;
 
 @Component({
@@ -22,7 +23,7 @@ export class ContentConfigComponent  {
   @Output() filteringContent = new EventEmitter<[ContentConfig,string]>();
   @Output() sortingContent = new EventEmitter<SortKind>();
 
-  service = inject(ApiCoreService);
+ readonly userState = inject(UserStateService);
   
   // исходные значения для конфигурации
   selectAuthor:string="";

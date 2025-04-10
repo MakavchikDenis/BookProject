@@ -92,7 +92,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
       author: this.myForm.controls["Author"].value,
       publishYear: this.myForm.controls["Publication Year"].value,
       genreKey: this.myForm.controls["Genre"].value,
-      imgSrc: ""
+      imgSrc: "/assets/imgs/not.png"
     }
 
     this.subscriptions.push(this.apiService.addData(ApiUrls.bookStorage, item)

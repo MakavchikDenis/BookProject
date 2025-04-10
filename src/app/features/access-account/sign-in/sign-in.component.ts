@@ -5,8 +5,6 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AccessAppButtonComponent } from '../../../shared/buttons/acces-app/access-app-button.component';
 import { AccessAppReferenceComponent } from '../../../shared/references/access-app-reference/access-app-reference.component';
 import { Router } from '@angular/router';
-import { AccessAccountComponent } from '../access-account.component';
-import { SignUpComponent } from '../sign-up/sign-up.component';
 import { ApiCoreService } from '../../../core/services/api-core.service';
 import { AppSignalService } from '../../../core/services/app-signal.service';
 import { Subscription } from 'rxjs';
@@ -21,6 +19,8 @@ import { ApiUrls } from '../../../shared/other/api-url';
 import { MessageKind } from '../../../shared/other/messag-snack-bar';
 import { ContentHomePageComponent } from '../../home-page/content-home-page/content-home-page.component';
 import {LogIn,User} from '../../../../app/shared/models/logIn';
+import { UserStateService } from '../../../core/services/user-state.service';
+import { JwtService } from '../../../core/services/jwt.service';
 
 
 @Component({
@@ -36,6 +36,8 @@ export class SignInComponent implements OnDestroy {
   readonly routService = inject(Router);
   readonly httpService = inject(ApiCoreService);
   readonly appSignalService = inject(AppSignalService);
+  readonly jwtService = inject(JwtService);
+  readonly userState = inject(UserStateService);
   private subscription?: Subscription;
 
 
@@ -44,7 +46,7 @@ export class SignInComponent implements OnDestroy {
   //контент и урл для link
   extraContentLink = "Need to create an account? ";
   contentLink = "Sign Up";
-  urlLink = "/" + (this.routService.config.find(x => x.component == AccessAccountComponent)?.children?.find(x => x.component == SignUpComponent)?.path ?? "");
+  urlLink = "/access/reg";
 
 
   //свойства для template
@@ -82,12 +84,12 @@ export class SignInComponent implements OnDestroy {
     let user = {email:this.mainForm.controls["Email"].value, password:this.mainForm.controls["Password"].value};
     this.subscription = this.httpService.accessRequest(ApiUrls.login, user).subscribe({
       next: (data: any) => {
-        console.log(data);
         let response = (data as LogIn);
         if (response) {
-          console.log(response.accessToken);
           let userData = (response as LogIn);
           localStorage.setItem("token", userData.accessToken);
+          let userId=this.jwtService.decodeToken(userData.accessToken);
+          this.userState.login(userId??"");  
           this.routService.navigate([this.routService.config.find(x => x.component == ContentHomePageComponent)?.path]);
         }
         else {

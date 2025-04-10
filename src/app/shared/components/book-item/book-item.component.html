@@ -1,7 +1,7 @@
 <div>
     <mat-card class="card" appearance="outlined">
-        <div style="text-align: right;">
-            <button mat-icon-button (click)="itemOperation(false)"><mat-icon>delete</mat-icon></button>
+        <div id="deleteIcon">
+            <button mat-icon-button [disabled]="this.userState==false" (click)="itemOperation(false)"><mat-icon>delete</mat-icon></button>
         </div>
         <img mat-card-image src="{{this.img}}" alt="">
         <mat-card-content>
@@ -14,7 +14,8 @@
                 </p>
             </div>
             <div>
-                <p id="author">{{this.author}}</p>
+                <p>{{this.author}}</p>
+                <p>{{this.publicYear}}</p>
             </div>
         </mat-card-content>
         <mat-card-actions>

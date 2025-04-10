@@ -7,7 +7,7 @@ import { AppSignalService } from './core/services/app-signal.service';
 import { MessageKind } from './shared/other/messag-snack-bar';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
-import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+
 
 @Component({
   selector: 'app-root',
@@ -18,9 +18,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 export class AppComponent implements DoCheck {
   @ViewChild(SnackBarComponent, { static: false })
   private snackBar?: SnackBarComponent;
-
   readonly appSignalService = inject(AppSignalService);
-
   messageSignal?: [MessageKind, string?] = [MessageKind.None];
 
   ngDoCheck(): void {

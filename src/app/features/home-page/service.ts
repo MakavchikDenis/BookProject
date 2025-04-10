@@ -63,6 +63,7 @@ export class Service {
                     return x[0].books
                 }),
                     switchMap(result => {
+                        console.log(result);
                         return this.httpServise.getAllData(ApiUrls.bookStorage)
                             .pipe(map((x: Book[]) => x.map(z => { result.includes(z.id) ? z.prefer = true : false; return z })))
                     }))
@@ -114,8 +115,8 @@ export class Service {
         }
     }
 
-    UserPreferencesRequest(referenceSigBooks: any, userId: string) {
-        let params = new HttpParams().set("userId", userId);
+    UserPreferencesRequest(referenceSigBooks: any, userId?: string) {
+        let params = new HttpParams().set("userId", userId ?? "");
         this.httpServise.getByCondition(ApiUrls.preferBook, params)
             .pipe(map(x => {
                 //console.log(x[0].books);
@@ -138,11 +139,12 @@ export class Service {
             });
     }
 
-    UpdatePreferencesRequest(userId: string, activity: boolean, bookId: string, referenceSigBooks: any, referenceSigAuthor: any) {
-        let params = new HttpParams().set("userId", userId);
+    UpdatePreferencesRequest(activity: boolean, bookId: string, referenceSigBooks: any, referenceSigAuthor: any,userId?: string) {
+        let params = new HttpParams().set("userId", userId ?? "");
         this.httpServise.getByCondition(ApiUrls.preferBook, params).
             pipe(map(x => (x[0] as Preference)),
                 switchMap(res => {
+                    console.log(res); 
                     if (activity == true) {
                         res.books.push(bookId);
                     }
@@ -150,7 +152,7 @@ export class Service {
                         let array = res.books.filter(x => x != bookId);
                         res.books = array;
                     }
-                    return this.httpServise.editData(ApiUrls.preferBook + "/" + userId, res);
+                    return this.httpServise.editData(ApiUrls.preferBook + "/" + res.id, res);
                 })).
             subscribe({
                 next: (x) => {
@@ -164,7 +166,7 @@ export class Service {
             })
     }
 
-    DeleteItemRequest(bookId: string, referenceSigBooks: any, referenceSigAuthor:any,userId: string,){
+    DeleteItemRequest(bookId: string, referenceSigBooks: any, referenceSigAuthor:any,userId?: string,){
         this.httpServise.deleteData(ApiUrls.bookStorage, bookId)
         .subscribe({
             next:()=>{

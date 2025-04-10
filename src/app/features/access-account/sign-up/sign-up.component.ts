@@ -45,7 +45,7 @@ export class SignUpComponent implements OnDestroy {
   //контент и урл для link
   extraContentLink = "Exist account? ";
   contentLink = "Log In";
-  urlLink = "/" + (this.routService.config.find(x => x.component == AccessAccountComponent)?.children?.find(x => x.component == SignInComponent)?.path ?? "");
+  urlLink = "/access";
 
   //свойства для template
   mainForm: FormGroup = this.formService.getFormField(Activity.Registration);
@@ -103,7 +103,7 @@ export class SignUpComponent implements OnDestroy {
       .subscribe({
         next: (result) => {
           this.appSignalService.snackBar.set([MessageKind.Success]);
-          this.routService.navigate([""]);
+          this.routService.navigate(["access"]);
         },
         error: (error) => {
           console.log(error);

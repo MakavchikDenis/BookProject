@@ -13,4 +13,8 @@ export class JwtService {
     console.log(res);
     return res.sub;
   }
+  ///проверка tokena. Надо писать либо запрос на бэк либо кастомную реализацию проверки на клиенте
+  checkToken(token:string|null){
+    return true;
+  }
 }

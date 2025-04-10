@@ -15,7 +15,7 @@
             }
         </mat-select>
     </mat-form-field>
-    <mat-slide-toggle [(ngModel)]="this.onlyFavorites" (change)="onFilterContent('favorites')">Show only favourites</mat-slide-toggle>
+    <mat-slide-toggle [(ngModel)]="this.onlyFavorites" [disabled]="this.userState.isLoggedIn()==false" (change)="onFilterContent('favorites')">Show only favourites</mat-slide-toggle>
     <mat-form-field>
         <mat-label>Search</mat-label>
         <mat-icon matTextPrefix>search</mat-icon>

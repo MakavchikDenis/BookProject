@@ -10,11 +10,9 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   let jwtService = inject(JwtService);
   let userStateService = inject(UserStateService);
   let token = localStorage.getItem('token');
-  if (token != null) {
-    console.log("Intersepter" + token);
-    let userId = jwtService.decodeToken(token ?? "");
-    console.log("Intersepter" + userId);
-    userStateService.login(userId ??"");
+
+  if (!jwtService.checkToken(token) || token==null) {
+    userStateService.logout();
   }
   return next(req);
 }
