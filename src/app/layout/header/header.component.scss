@@ -1,0 +1,48 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding-left: 100px;
+  padding-right: 100px;
+  height: 100px;
+}
+
+.main-navigation {
+  display: table-cell;
+  max-width: 400px;
+
+}
+
+.access-navigation {
+  display: table-cell;
+  max-width: 300px;
+}
+
+.access-navigation a {
+  margin: 10px;
+  vertical-align:top;
+}
+
+img {
+  margin-top: 0px;
+  width: 70px;
+  height: 60px;
+}
+
+#imgWrapper{
+  display: inline-block; 
+  vertical-align: bottom;
+}
+
+#linksWrapper a{
+  margin-left: 10px;
+}
+
+#linksWrapper{
+  display: inline-block; 
+  vertical-align: top; 
+  padding-top: 12px;
+}
+

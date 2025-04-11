@@ -1,0 +1,29 @@
+<div>
+    <mat-toolbar color="primary" class="header">
+        <div class="main-navigation">
+            <div id="imgWrapper">
+                <img src="/assets/imgs/main-logo.png" alt="">
+            </div>
+            <div id="linksWrapper">
+                <a mat-button routerLink="" routerLinkActive="activeLink">HomePage</a>
+                <a mat-button routerLink="404" routerLinkActive="activeLink">Categories</a>
+                <a mat-flat-button routerLink="add" routerLinkActive="activeLink">Add New</a>
+            </div>
+        </div>
+        <div class="access-navigation">
+            <div *ngIf="this.userState.isLoggedIn()==false; else signOut">
+                <a mat-stroked-button routerLink="access/reg" routerLinkActive="activeLink">
+                    <mat-icon matTextPrefix>person_add</mat-icon>
+                    Sign Up</a>
+                <a mat-flat-button routerLink="access" routerLinkActive="activeLink">
+                    <mat-icon matTextPrefix>person</mat-icon>
+                    Sign In</a>
+            </div>
+            <ng-template #signOut>
+                <a mat-stroked-button routerLink="logout" routerLinkActive="activeLink">
+                    <mat-icon matTextPrefix>logout</mat-icon>
+                    Sign Out</a>
+            </ng-template>
+        </div>
+    </mat-toolbar>
+</div>

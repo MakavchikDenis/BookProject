@@ -1,0 +1,153 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "login": "user1",
+      "password": "34534",
+      "email": "21313@gmail.com"
+    },
+    {
+      "id": "2",
+      "login": "user2",
+      "password": "",
+      "email": ""
+    },
+    {
+      "id": "4",
+      "login": "43534",
+      "password": "34534",
+      "email": "345345"
+    },
+    {
+      "email": "lev@gmail.com",
+      "password": "$2a$10$T1qcKtB51BY3aLdFj9wkQ.vp75TakYC3vtT3GhsDARUJA5E4tkdn6",
+      "login": "Levon",
+      "id": "i7v9bCm"
+    }
+  ],
+  "genres": [
+    {
+      "id": "1",
+      "name": "Mystery"
+    },
+    {
+      "id": "2",
+      "name": "Romance"
+    },
+    {
+      "id": "3",
+      "name": "Science"
+    },
+    {
+      "id": "4",
+      "name": "Fiction"
+    }
+  ],
+  "bookStorage": [
+    {
+      "id": "1",
+      "name": "PythonEdit",
+      "author": "S. Semenova",
+      "publishYear": "2024",
+      "imgSrc": "/assets/imgs/1.png",
+      "genreKey": "1"
+    },
+    {
+      "id": "2",
+      "name": "Type Script",
+      "author": "B. Cherny",
+      "publishYear": "2020",
+      "imgSrc": "/assets/imgs/2.png",
+      "genreKey": "1"
+    },
+    {
+      "id": "3",
+      "name": "Java",
+      "author": "R. Lavore",
+      "publishYear": "2021",
+      "imgSrc": "/assets/imgs/3.png",
+      "genreKey": "1"
+    },
+    {
+      "id": "4",
+      "name": "C++",
+      "author": "R. Lavore",
+      "publishYear": 2021,
+      "imgSrc": "/assets/imgs/4.png",
+      "genreKey": "3"
+    },
+    {
+      "id": "5",
+      "name": "C#",
+      "author": "C. Althoff",
+      "publishYear": 2018,
+      "imgSrc": "/assets/imgs/5.png",
+      "genreKey": "3"
+    },
+    {
+      "id": "6",
+      "name": "Java Script",
+      "author": "H. Kirupa ",
+      "publishYear": "2015",
+      "imgSrc": "/assets/imgs/6.png",
+      "genreKey": "3"
+    },
+    {
+      "id": "7",
+      "name": "PHP",
+      "author": "M. Zandstra ",
+      "publishYear": "2018",
+      "imgSrc": "/assets/imgs/7.png",
+      "genreKey": "3"
+    },
+    {
+      "id": "8",
+      "name": "SQL",
+      "author": "U. Shields",
+      "publishYear": 2019,
+      "imgSrc": "/assets/imgs/8.png",
+      "genreKey": "3"
+    },
+    {
+      "id": "9",
+      "name": "Clean Agile",
+      "author": "R. Matrin",
+      "publishYear": 2018,
+      "imgSrc": "/assets/imgs/9.png",
+      "genreKey": "3"
+    },
+    {
+      "id": "10",
+      "name": "Clean Code",
+      "author": "R. Matrin",
+      "publishYear": 2019,
+      "imgSrc": "/assets/imgs/10.png",
+      "genreKey": "3"
+    },
+    {
+      "name": "NewBook",
+      "author": "Peter",
+      "publishYear": "2022",
+      "genreKey": "2",
+      "imgSrc": "/assets/imgs/not.png",
+      "id": "EJqPZhP"
+    }
+  ],
+  "preferBook": [
+    {
+      "id": "1",
+      "books": [
+        "4"
+      ],
+      "userId": "1"
+    },
+    {
+      "books": [
+        "3",
+        "4"
+      ],
+      "userId": "i7v9bCm",
+      "id": "ib-JZXf"
+    }
+  ]
+}

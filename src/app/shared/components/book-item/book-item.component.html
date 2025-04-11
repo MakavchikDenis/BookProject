@@ -1,0 +1,28 @@
+<div>
+    <mat-card class="card" appearance="outlined">
+        <div id="deleteIcon">
+            <button mat-icon-button [disabled]="this.userState==false" (click)="itemOperation(false)"><mat-icon>delete</mat-icon></button>
+        </div>
+        <img mat-card-image src="{{this.img}}" alt="">
+        <mat-card-content>
+            <div>
+                <p>
+                    <strong>{{this.name}}</strong>
+                </p>
+                <p *ngIf="this.prefer">
+                    <mat-icon>favorite</mat-icon>
+                </p>
+            </div>
+            <div>
+                <p>{{this.author}}</p>
+                <p>{{this.publicYear}}</p>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <a mat-stroked-button [disabled]="this.userState==false" (click)="itemOperation(true)">Edit</a>
+            <button *ngIf="this.prefer; else blockAdd" mat-button (click)="removeFromFavorite()">Remove from
+                favorite</button>
+            <ng-template #blockAdd><button mat-button [disabled]="this.userState==false" (click)="addToFavorite()">Add to Favorite</button></ng-template>
+        </mat-card-actions>
+    </mat-card>
+</div>

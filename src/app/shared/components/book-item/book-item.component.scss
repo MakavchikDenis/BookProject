@@ -1,0 +1,15 @@
+
+  mat-card-actions {
+    justify-content: space-between;
+  }
+  mat-card-content div{ 
+    display: flex;
+    justify-content: space-between;
+  }
+  img {
+    width: 250px;
+    height: 170px;
+  }
+  #deleteIcon{
+    text-align: right;
+  }

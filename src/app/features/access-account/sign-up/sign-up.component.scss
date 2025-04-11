@@ -1,0 +1,41 @@
+@use '@angular/material' as mat;
+
+.container {
+  display:flex;
+  justify-content: center;
+}
+
+.example-card {
+    width: 400px;
+    @include mat.card-overrides((
+        title-text-line-height:30px,
+        title-text-size:20px,
+        subtitle-text-size:15px,
+        outlined-container-color:#FFFFFF
+    ));
+  };
+ 
+  mat-card-content,mat-card-title,mat-card-subtitle{
+    text-align: center;
+  }
+    
+  mat-card-header, mat-card-actions{
+    justify-content: center;
+  }
+
+  mat-form-field {
+    width:250px;
+    height:70px;
+    font-size:12pt;
+  }
+ 
+  mat-icon {
+    font-size: 18px;
+  }
+
+  form {
+    padding-top: 25px;
+  }
+  
+
+  
